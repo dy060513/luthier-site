@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="小提琴示意">
+  <rect width="480" height="600" fill="#f7f2e7"/>
+  <rect x="18" y="18" width="444" height="564" rx="12" fill="none" stroke="#b9985f" stroke-opacity="0.55" stroke-width="1.5"/>
+  <g fill="none" stroke="#1d1815" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- body outline -->
+    <path d="M240 150 C 258 150 274 154 282 163 C 300 182 316 190 316 212 C 316 232 300 250 292 262 C 284 274 276 280 272 285 C 276 290 284 296 292 308 C 300 320 322 336 322 372 C 322 402 296 432 240 432 C 184 432 158 402 158 372 C 158 336 180 320 188 308 C 196 296 204 290 208 285 C 204 280 196 274 188 262 C 180 250 164 232 164 212 C 164 190 180 182 198 163 C 206 154 222 150 240 150 Z"/>
+    <!-- neck + pegbox + scroll -->
+    <path d="M232 152 L232 92 L226 78"/>
+    <path d="M248 152 L248 92 L254 78"/>
+    <path d="M226 78 C 226 62 236 52 250 54 C 262 56 268 68 262 78"/>
+    <circle cx="256" cy="60" r="2.2" fill="#b9985f" stroke="none"/>
+    <!-- strings -->
+    <path d="M236 86 L236 320"/>
+    <path d="M240 86 L240 320"/>
+    <path d="M244 86 L244 320"/>
+    <path d="M248 86 L248 320"/>
+    <!-- bridge -->
+    <path d="M228 320 L252 320 L249 330 L231 330 Z"/>
+    <!-- f-holes -->
+    <path d="M208 236 C 216 238 220 244 218 252 C 214 262 204 266 202 274"/>
+    <path d="M272 236 C 264 238 260 244 262 252 C 266 262 276 266 278 274"/>
+    <!-- tailpiece -->
+    <path d="M230 336 L250 336 L246 384 L234 384 Z"/>
+    <circle cx="240" cy="442" r="4"/>
+  </g>
+  <g font-family="Outfit, sans-serif" font-size="10" letter-spacing="4" fill="#b9985f" text-anchor="middle">
+    <text x="240" y="508">SHIXIAN · LUTHIER</text>
+    <text x="240" y="530" font-size="8.5" letter-spacing="3" fill="#a99a7f">VIOLIN · PLACEHOLDER</text>
+  </g>
+</svg>

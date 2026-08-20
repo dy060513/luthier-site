@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拾弦提琴工坊 · 手工提琴</title>
+<meta name="description" content="拾弦提琴工坊：手工小提琴、大提琴、低音提琴。2026 国际乐器展销会现场展示，扫码即览全部琴款。">
+<meta name="theme-color" content="#1d1815">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1815'/%3E%3Cpath d='M16 8 L20 22 L16 24 L12 22 Z' fill='%23c9a86a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body>
+<div class="app">
+  <header class="topbar" id="topbar">
+    <button class="brand" data-route="/" aria-label="回到首页">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name" id="brandName">拾弦提琴工坊</span>
+    </button>
+    <div class="topbar-actions">
+      <button class="top-admin" data-route="/admin" aria-label="内容管理">管理</button>
+      <button class="icon-btn" id="btnSearch" data-route="/search" aria-label="搜索">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn" id="btnFav" data-route="/favorites" aria-label="我的收藏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7.5-4.6-9.5-9C1 7.5 3.4 5 6.2 5c1.9 0 3.6 1 4.6 2.6h2.4C14.2 6 15.9 5 17.8 5 20.6 5 23 7.5 21.5 11c-2 4.4-9.5 9-9.5 9z"/></svg>
+        <span class="badge-dot" id="favCount" hidden></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="series-rail" id="seriesRail" aria-label="系列切换">
+    <button class="rail-chip" data-route="/">首页</button>
+    <button class="rail-chip" data-series="violin">小提琴</button>
+    <button class="rail-chip" data-series="cello">大提琴</button>
+    <button class="rail-chip" data-series="bass">低音提琴</button>
+    <button class="rail-chip" data-route="/favorites">收藏</button>
+  </nav>
+
+  <main id="view" class="view" aria-live="polite"></main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <p class="footer-name" id="footerBrand">拾弦提琴工坊</p>
+      <p class="footer-en" id="footerEn">SHIXIAN · LUTHIER</p>
+    </div>
+    <div class="footer-contact">
+      <p class="footer-label">联系方式</p>
+      <p class="contact-line">微信 <span id="footerWechat">shixian_luthier</span></p>
+      <p class="contact-line">电话 <a href="tel:13800000000" id="footerPhone">138-0000-0000</a></p>
+      <p class="footer-note" id="footerNote"></p>
+    </div>
+    <div class="footer-actions">
+      <button class="btn btn-ghost" id="btnShare">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.6"/><circle cx="17.5" cy="5.5" r="2.6"/><circle cx="17.5" cy="18.5" r="2.6"/><path d="m8.4 10.8 6.8-4m-6.8 6.4 6.8 4"/></svg>
+        分享
+      </button>
+      <button class="btn btn-ghost" id="btnSavePhone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M11 18.5h2"/></svg>
+        保存到手机
+      </button>
+      <button class="btn btn-solid" id="btnQr">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h1M20 20h1"/></svg>
+        展销会二维码
+      </button>
+    </div>
+    <p class="footer-copy">手工制作 · 支持定制 · 展会现场可试奏 · <button class="admin-link" data-route="/admin">管理内容</button></p>
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lbClose" aria-label="关闭">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <img id="lbImg" alt="" />
+  <p class="lightbox-caption" id="lbCaption"></p>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/app.js?v=13" defer></script>
+</body>
+</html>

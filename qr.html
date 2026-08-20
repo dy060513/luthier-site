@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>展销会二维码海报 · 拾弦提琴工坊</title>
+<meta name="theme-color" content="#1d1815">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .qr-body { background: var(--ink); min-height: 100dvh; display: flex; flex-direction: column; }
+  .qr-page { flex: 1; width: 100%; max-width: 560px; margin: 0 auto; padding: 28px 20px calc(36px + env(safe-area-inset-bottom,0px)); display: flex; flex-direction: column; }
+  .poster { background: var(--paper); border-radius: 20px; padding: 34px 26px 30px; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.35); }
+  .poster-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+  .poster h1 { font-family: var(--font-display); font-weight: 400; font-size: 34px; letter-spacing: 0.08em; margin-top: 10px; }
+  .poster-tagline { margin-top: 8px; font-family: var(--font-display); font-style: italic; font-size: 15px; color: var(--muted); }
+  .qr-box { margin: 24px auto 0; width: 240px; height: 240px; background: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .qr-box canvas, .qr-box img { width: 100%; height: 100%; display: block; }
+  .poster-url { margin-top: 14px; font-size: 11px; letter-spacing: 0.06em; color: var(--muted-2); word-break: break-all; line-height: 1.6; }
+  .poster-expo { margin-top: 18px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 12.5px; color: var(--ink-2); line-height: 1.8; }
+  .qr-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+  .qr-hint { margin-top: 12px; text-align: center; font-size: 11px; letter-spacing: 0.1em; color: var(--on-dark-muted); }
+</style>
+</head>
+<body class="qr-body">
+<main class="qr-page">
+  <section class="poster">
+    <p class="poster-eyebrow" id="pEyebrow">SHIXIAN · LUTHIER</p>
+    <h1 id="pBrand">拾弦提琴工坊</h1>
+    <p class="poster-tagline" id="pTagline">以木为骨，以弦为声。</p>
+    <div class="qr-box" id="qrBox"></div>
+    <p class="poster-url" id="pUrl"></p>
+    <p class="poster-expo" id="pExpo"></p>
+  </section>
+  <div class="qr-actions">
+    <button class="btn btn-solid" id="saveBtn">保存海报</button>
+    <button class="btn btn-outline" id="copyBtn" style="border-color:rgba(239,232,219,.3);color:var(--on-dark)">复制链接</button>
+  </div>
+  <p class="qr-hint">长按二维码图片也可直接保存</p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+  var base = location.href.replace(/qr\.html(\?.*)?$/, "");
+  var url = new URLSearchParams(location.search).get("url") || base;
+
+  var qrBox = document.getElementById("qrBox");
+  var saveBtn = document.getElementById("saveBtn");
+  var copyBtn = document.getElementById("copyBtn");
+  var made = false;
+
+  function toast(msg) {
+    var t = document.createElement("div");
+    t.textContent = msg;
+    t.style.cssText = "position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#1d1815;color:#efe8db;padding:11px 20px;border-radius:999px;font-size:13px;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.3)";
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, 2000);
+  }
+
+  document.getElementById("pUrl").textContent = url;
+  document.getElementById("pExpo").textContent = "2026 国际乐器展销会 · 9月18日–20日\n上海新国际博览中心 W4 馆 B-12 展位";
+
+  // load site data for brand text (best-effort)
+  fetch("data/instruments.json", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d) return;
+    document.getElementById("pEyebrow").textContent = d.site.brandNameEn;
+    document.getElementById("pBrand").textContent = d.site.brandName;
+    document.getElementById("pTagline").textContent = d.site.tagline;
+    document.getElementById("pExpo").textContent = d.site.expo.title + " · " + d.site.expo.dates + "\n" + d.site.expo.venue + "\n" + d.site.expo.note;
+  }).catch(function () {});
+
+  // ---- QR via local lib (CDN) ----
+  function loadLib(tries) {
+    var hosts = ["cdn.jsdelivr.net", "gcore.jsdelivr.net", "fastly.jsdelivr.net"];
+    var host = hosts[tries - 1];
+    if (!host) { apiFallback(); return; }
+    var s = document.createElement("script");
+    s.src = "https://" + host + "/npm/qrcode-generator@1.4.4/qrcode.min.js";
+    s.onload = function () { makeLocal(); };
+    s.onerror = function () { loadLib(tries - 1); };
+    document.head.appendChild(s);
+  }
+  function makeLocal() {
+    if (made) return; made = true;
+    var qr;
+    try { qr = qrcode(0, "M"); qr.addData(url); qr.make(); }
+    catch (e) { apiFallback(); return; }
+    var mod = qr.getModuleCount();
+    var scale = Math.floor(720 / mod);
+    var size = mod * scale;
+    var c = document.createElement("canvas");
+    c.width = c.height = size;
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = "#1d1815";
+    for (var r = 0; r < mod; r++) for (var col = 0; col < mod; col++) if (qr.isDark(r, col)) ctx.fillRect(col * scale, r * scale, scale, scale);
+    qrBox.appendChild(c);
+    saveBtn.addEventListener("click", savePoster);
+    saveBtn.textContent = "保存海报";
+  }
+  function apiFallback() {
+    if (made) return; made = true;
+    var img = document.createElement("img");
+    img.src = "https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=10&data=" + encodeURIComponent(url);
+    img.alt = "二维码";
+    qrBox.appendChild(img);
+    saveBtn.disabled = true;
+    saveBtn.textContent = "长按二维码保存";
+  }
+
+  function savePoster() {
+    var W = 1080, H = 1527;
+    var cv = document.createElement("canvas");
+    cv.width = W; cv.height = H;
+    var g = cv.getContext("2d");
+    g.fillStyle = "#faf7f0"; g.fillRect(0, 0, W, H);
+    g.strokeStyle = "rgba(185,152,95,.55)"; g.lineWidth = 2;
+    g.strokeRect(40, 40, W - 80, H - 80);
+    g.textAlign = "center";
+    g.fillStyle = "#b9985f";
+    g.font = "400 24px Outfit, sans-serif";
+    g.fillText("SHIXIAN · LUTHIER", W / 2, 160);
+    g.fillStyle = "#1d1815";
+    g.font = "300 92px 'Cormorant Garamond', Georgia, serif";
+    g.fillText(document.getElementById("pBrand").textContent, W / 2, 320);
+    g.fillStyle = "rgba(29,24,21,.6)";
+    g.font = "italic 300 40px 'Cormorant Garamond', Georgia, serif";
+    g.fillText(document.getElementById("pTagline").textContent, W / 2, 392);
+    var qrC = qrBox.querySelector("canvas");
+    if (qrC) {
+      var qs = 520;
+      g.fillStyle = "#ffffff";
+      g.fillRect((W - qs) / 2, 470, qs, qs);
+      g.drawImage(qrC, (W - qs) / 2, 470, qs, qs);
+    }
+    g.fillStyle = "rgba(29,24,21,.55)";
+    g.font = "300 30px Outfit, sans-serif";
+    var urlTxt = url;
+    if (urlTxt.length > 34) { urlTxt = urlTxt.slice(0, 34) + "…"; }
+    g.fillText(urlTxt, W / 2, 1070);
+    g.fillStyle = "#4a3428";
+    g.font = "400 34px Outfit, sans-serif";
+    var lines = document.getElementById("pExpo").textContent.split("\n").filter(Boolean);
+    lines.forEach(function (ln, i) { g.fillText(ln, W / 2, 1170 + i * 58); });
+    cv.toBlob(function (blob) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "shixian-poster.png";
+      document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      toast("海报已保存");
+    }, "image/png");
+  }
+
+  copyBtn.addEventListener("click", function () {
+    var done = function () { toast("链接已复制"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, function () { fallbackCopy(); done(); });
+    else { fallbackCopy(); done(); }
+  });
+  function fallbackCopy() {
+    var ta = document.createElement("textarea"); ta.value = url; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta);
+  }
+
+  loadLib(3);
+})();
+</script>
+</body>
+</html>
