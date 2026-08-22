@@ -123,18 +123,294 @@
     }
   },
   "i18nItems": {
-    "Kv-02": { "en": { "name": "Dark Dragon Ink-style Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Ink-style dragon print on the back"], ["Tone", "Clear, strong and resonant"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with ink-style dragon print. Powerful resonance, clear strong tone, professional grade. Unique piece with Chinese mythological culture value." } },
-    "Kv-03": { "en": { "name": "Azure Phoenix Ink-style Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Blue ink-style phoenix print on the back"], ["Tone", "Clear bright tone, sweet highs"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with blue ink-style phoenix print. Clear bright tone, sweet highs, professional quality. Artistic piece with Chinese auspicious bird aesthetics." } },
-    "Kv-04": { "en": { "name": "Vermilion Phoenix Ink-style Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Red ink-style phoenix print on the back"], ["Tone", "Warm bright tone, full resonance"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with red ink-style phoenix print. Full resonance, warm bright tone, professional grade. Auspicious piece combining decoration and playability." } },
-    "Kv-05": { "en": { "name": "Magpie & Plum Fine-style Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Fine magpie-on-plum print on the back"], ["Tone", "Balanced clear tone"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with fine magpie plum print. Balanced clear tone, professional performance grade. Collectible piece with Chinese traditional art value." } },
-    "Kv-06": { "en": { "name": "Lotus Bloom Dunhuang-style Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Dunhuang-style lotus print on the back"], ["Tone", "Warm soft tone, full resonance"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with Dunhuang-style lotus print. Warm soft tone, full resonance, professional quality. Elegant piece with ancient Chinese Buddhist aesthetics." } },
-    "Kv-07": { "en": { "name": "Floral Scroll Vintage Ornamental Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Symmetrical floral scroll print on the back"], ["Tone", "Balanced rich tone, comfortable playability"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with symmetrical floral scroll print. Balanced rich tone, comfortable playability, professional grade. Vintage decorative piece with elegant craftsmanship." } },
-    "Kv-08": { "en": { "name": "Butterfly Shadow Vintage Floral Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Vintage sketch butterfly floral print on the back"], ["Tone", "Balanced natural tone, comfortable playability"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with vintage sketch butterfly floral print. Balanced natural tone, comfortable playability, entry-level professional quality. Artistic retro decorative piece." } },
-    "Kv-09": { "en": { "name": "Auspicious Butterfly Palace-style Medallion Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Chinese palace-style butterfly medallion print on the back"], ["Tone", "Warm full tone, excellent resonance"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with Chinese palace-style butterfly medallion print. Warm full tone, excellent resonance, professional quality. Auspicious piece with traditional Chinese decorative value." } },
-    "Kv-10": { "en": { "name": "Misty Mountain Ink-wash Landscape Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Ink-wash mountain landscape print on the back"], ["Tone", "Clear flowing tone"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with ink-wash mountain landscape print. Clear flowing tone, professional quality. Elegant piece with traditional Chinese landscape aesthetics." } },
-    "Kv-11": { "en": { "name": "Purple Storm Lightning Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Full-body purple lightning print"], ["Tone", "Bright powerful tone"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with full-body purple lightning print. Bright powerful tone, great for expressive playing. Cool stylish piece combining unique look and playable quality." } },
-    "Kv-12": { "en": { "name": "Muse Classical Portrait Printed Violin", "params": [["Materials", "Selected laminated wood"], ["Craft", "Classical oil painting portrait print on the back"], ["Tone", "Soft full tone, delicate playability"], ["Size", "4/4"]], "note": "Crafted from selected laminated wood with classical oil painting portrait print. Soft full tone, delicate playability, professional quality. Artistic piece with western aesthetic charm." } },
-    "Kv-13": { "en": { "name": "Bespoke Custom Pattern Violin", "params": [["Materials", "Selected laminated wood base"], ["Craft", "Full custom pattern: portraits, landscapes, IP art, memorial elements"], ["Tone", "Stable balanced tone, professional playability"], ["Size", "4/4"]], "note": "Built on selected laminated wood base, supports full custom patterns: portraits, landscapes, IP art, memorial elements. One-of-a-kind piece with stable balanced tone, professional playability. Ideal for gifting, collection and personal expression." } },
+    "Kv-02": {
+      "en": {
+        "name": "Dark Dragon Ink-style Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Ink-style dragon print on the back"
+          ],
+          [
+            "Tone",
+            "Clear, strong and resonant"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with ink-style dragon print. Powerful resonance, clear strong tone, professional grade. Unique piece with Chinese mythological culture value."
+      }
+    },
+    "Kv-03": {
+      "en": {
+        "name": "Azure Phoenix Ink-style Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Blue ink-style phoenix print on the back"
+          ],
+          [
+            "Tone",
+            "Clear bright tone, sweet highs"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with blue ink-style phoenix print. Clear bright tone, sweet highs, professional quality. Artistic piece with Chinese auspicious bird aesthetics."
+      }
+    },
+    "Kv-04": {
+      "en": {
+        "name": "Vermilion Phoenix Ink-style Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Red ink-style phoenix print on the back"
+          ],
+          [
+            "Tone",
+            "Warm bright tone, full resonance"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with red ink-style phoenix print. Full resonance, warm bright tone, professional grade. Auspicious piece combining decoration and playability."
+      }
+    },
+    "Kv-05": {
+      "en": {
+        "name": "Magpie & Plum Fine-style Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Fine magpie-on-plum print on the back"
+          ],
+          [
+            "Tone",
+            "Balanced clear tone"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with fine magpie plum print. Balanced clear tone, professional performance grade. Collectible piece with Chinese traditional art value."
+      }
+    },
+    "Kv-06": {
+      "en": {
+        "name": "Lotus Bloom Dunhuang-style Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Dunhuang-style lotus print on the back"
+          ],
+          [
+            "Tone",
+            "Warm soft tone, full resonance"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with Dunhuang-style lotus print. Warm soft tone, full resonance, professional quality. Elegant piece with ancient Chinese Buddhist aesthetics."
+      }
+    },
+    "Kv-07": {
+      "en": {
+        "name": "Floral Scroll Vintage Ornamental Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Symmetrical floral scroll print on the back"
+          ],
+          [
+            "Tone",
+            "Balanced rich tone, comfortable playability"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with symmetrical floral scroll print. Balanced rich tone, comfortable playability, professional grade. Vintage decorative piece with elegant craftsmanship."
+      }
+    },
+    "Kv-08": {
+      "en": {
+        "name": "Butterfly Shadow Vintage Floral Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Vintage sketch butterfly floral print on the back"
+          ],
+          [
+            "Tone",
+            "Balanced natural tone, comfortable playability"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with vintage sketch butterfly floral print. Balanced natural tone, comfortable playability, entry-level professional quality. Artistic retro decorative piece."
+      }
+    },
+    "Kv-09": {
+      "en": {
+        "name": "Auspicious Butterfly Palace-style Medallion Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Chinese palace-style butterfly medallion print on the back"
+          ],
+          [
+            "Tone",
+            "Warm full tone, excellent resonance"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with Chinese palace-style butterfly medallion print. Warm full tone, excellent resonance, professional quality. Auspicious piece with traditional Chinese decorative value."
+      }
+    },
+    "Kv-10": {
+      "en": {
+        "name": "Misty Mountain Ink-wash Landscape Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Ink-wash mountain landscape print on the back"
+          ],
+          [
+            "Tone",
+            "Clear flowing tone"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with ink-wash mountain landscape print. Clear flowing tone, professional quality. Elegant piece with traditional Chinese landscape aesthetics."
+      }
+    },
+    "Kv-11": {
+      "en": {
+        "name": "Purple Storm Lightning Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Full-body purple lightning print"
+          ],
+          [
+            "Tone",
+            "Bright powerful tone"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with full-body purple lightning print. Bright powerful tone, great for expressive playing. Cool stylish piece combining unique look and playable quality."
+      }
+    },
+    "Kv-12": {
+      "en": {
+        "name": "Muse Classical Portrait Printed Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood"
+          ],
+          [
+            "Craft",
+            "Classical oil painting portrait print on the back"
+          ],
+          [
+            "Tone",
+            "Soft full tone, delicate playability"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Crafted from selected laminated wood with classical oil painting portrait print. Soft full tone, delicate playability, professional quality. Artistic piece with western aesthetic charm."
+      }
+    },
+    "Kv-13": {
+      "en": {
+        "name": "Bespoke Custom Pattern Violin",
+        "params": [
+          [
+            "Materials",
+            "Selected laminated wood base"
+          ],
+          [
+            "Craft",
+            "Full custom pattern: portraits, landscapes, IP art, memorial elements"
+          ],
+          [
+            "Tone",
+            "Stable balanced tone, professional playability"
+          ],
+          [
+            "Size",
+            "4/4"
+          ]
+        ],
+        "note": "Built on selected laminated wood base, supports full custom patterns: portraits, landscapes, IP art, memorial elements. One-of-a-kind piece with stable balanced tone, professional playability. Ideal for gifting, collection and personal expression."
+      }
+    },
     "v-01": {
       "en": {
         "name": "Dawnlight · 1716 Replica",
@@ -842,14 +1118,31 @@
       "name": "沧龙·墨海游龙",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印水墨游龙纹样" },
-        { "k": "音色", "v": "通透有力，共振出色" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印水墨游龙纹样"
+        },
+        {
+          "k": "音色",
+          "v": "通透有力，共振出色"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印水墨游龙纹样，墨色苍劲灵动，气势雄浑。琴体共振出色，音色通透有力，兼具东方神兽文化意蕴与专业演奏品质。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jn9nh-jpbt.jpg",
+        "assets/uploads/img-mt4jn6wk-7nyo.jpg",
+        "assets/uploads/img-mt4jndo5-l5yc.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jn9nh-jpbt.jpg"
     },
     {
       "id": "Kv-03",
@@ -857,14 +1150,31 @@
       "name": "青鸾·碧落栖凤",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印水墨青鸾纹样" },
-        { "k": "音色", "v": "清亮通透，高音婉转" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印水墨青鸾纹样"
+        },
+        {
+          "k": "音色",
+          "v": "清亮通透，高音婉转"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印水墨青鸾纹样，蓝羽翩跹意境空灵，设色清雅。琴音色清亮通透，高音婉转，兼具国风神鸟美学与演奏实用性。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jo0mr-pj7s.jpg",
+        "assets/uploads/img-mt4jnxz3-9oam.jpg",
+        "assets/uploads/img-mt4jo2kc-0ihb.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jo0mr-pj7s.jpg"
     },
     {
       "id": "Kv-04",
@@ -872,14 +1182,31 @@
       "name": "丹凰·朱火翔鸾",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印丹凰纹样" },
-        { "k": "音色", "v": "温暖明亮，共振饱满" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印丹凰纹样"
+        },
+        {
+          "k": "音色",
+          "v": "温暖明亮，共振饱满"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印丹凰纹样，赤羽流焰明艳生动，寓意祥瑞红火。琴体共振饱满，音色温暖明亮，吉庆寓意与演奏实力兼具。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jofvi-4kxh.jpg",
+        "assets/uploads/img-mt4jojgt-91g8.jpg",
+        "assets/uploads/img-mt4joli3-0m4u.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jofvi-4kxh.jpg"
     },
     {
       "id": "Kv-05",
@@ -887,14 +1214,31 @@
       "name": "鹊梅·喜上眉梢",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印工笔喜鹊登梅纹样" },
-        { "k": "音色", "v": "均衡清亮，高低音舒展自然" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印工笔喜鹊登梅纹样"
+        },
+        {
+          "k": "音色",
+          "v": "均衡清亮，高低音舒展自然"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印工笔喜鹊登梅纹样，纹样细腻寓意吉庆。音色均衡清亮，高低音舒展自然，专业演奏级品质，兼具国风收藏价值。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jpc64-7tr6.jpg",
+        "assets/uploads/img-mt4jpe8a-l23b.jpg",
+        "assets/uploads/img-mt4jpghw-kuzi.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jpc64-7tr6.jpg"
     },
     {
       "id": "Kv-06",
@@ -902,14 +1246,31 @@
       "name": "莲华·敦煌宝相",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印敦煌风格宝相莲花纹" },
-        { "k": "音色", "v": "温润柔和，共鸣饱满" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印敦煌风格宝相莲花纹"
+        },
+        {
+          "k": "音色",
+          "v": "温润柔和，共鸣饱满"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印敦煌风格宝相莲花纹，纹样典雅沉静，古韵十足。音色温润柔和，共鸣饱满，兼具敦煌美学与演奏功能。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jqim1-zpi4.jpg",
+        "assets/uploads/img-mt4jqkpz-jpvo.jpg",
+        "assets/uploads/img-mt4jqovm-k94b.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jqim1-zpi4.jpg"
     },
     {
       "id": "Kv-07",
@@ -917,14 +1278,31 @@
       "name": "锦簇·缠枝芳华",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印对称缠枝花卉纹" },
-        { "k": "音色", "v": "均衡饱满，手感舒适" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印对称缠枝花卉纹"
+        },
+        {
+          "k": "音色",
+          "v": "均衡饱满，手感舒适"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印对称缠枝花卉纹，繁而不乱复古精致，欧式宫廷质感。音色均衡饱满，演奏手感舒适，复古装饰美与专业演奏性兼具。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4js4ns-ukkh.jpg",
+        "assets/uploads/img-mt4js9az-e0w8.jpg",
+        "assets/uploads/img-mt4jsckl-tvbe.jpg"
+      ],
+      "image": "assets/uploads/img-mt4js4ns-ukkh.jpg"
     },
     {
       "id": "Kv-08",
@@ -932,14 +1310,31 @@
       "name": "蝶影·素花蝶影",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印复古素描花蝶纹样" },
-        { "k": "音色", "v": "均衡自然，手感舒适" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印复古素描花蝶纹样"
+        },
+        {
+          "k": "音色",
+          "v": "均衡自然，手感舒适"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印复古素描花蝶纹样，黑蝶翩跹配线描花卉，复古文艺质感拉满。音色均衡自然，演奏手感舒适，兼具复古装饰感与入门演奏实用性。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jr3di-oocl.jpg",
+        "assets/uploads/img-mt4jr7ix-qo3v.jpg",
+        "assets/uploads/img-mt4jrcsp-apz1.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jr3di-oocl.jpg"
     },
     {
       "id": "Kv-09",
@@ -947,14 +1342,31 @@
       "name": "禧蝶·宫团花韵",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印中式宫廷团花蝶纹" },
-        { "k": "音色", "v": "温润饱满，共鸣出色" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印中式宫廷团花蝶纹"
+        },
+        {
+          "k": "音色",
+          "v": "温润饱满，共鸣出色"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印中式宫廷团花蝶纹，如意边框配牡丹蝴蝶，喜庆雅致。音色温润饱满，共鸣出色，兼具中式吉祥寓意与装饰收藏价值。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jso2n-prdc.jpg",
+        "assets/uploads/img-mt4jsrgn-c3bu.jpg",
+        "assets/uploads/img-mt4jsw4g-3b2i.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jso2n-prdc.jpg"
     },
     {
       "id": "Kv-10",
@@ -962,14 +1374,31 @@
       "name": "烟山·云壑松风",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印水墨云山纹样" },
-        { "k": "音色", "v": "通透舒展，如山间流泉" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印水墨云山纹样"
+        },
+        {
+          "k": "音色",
+          "v": "通透舒展，如山间流泉"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印水墨云山纹样，烟岚环绕峰峦叠翠，意境悠远。音色通透舒展，如山间流泉，兼具东方山水美学与专业演奏质感。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jrop9-rgwl.jpg",
+        "assets/uploads/img-mt4jrrac-xpnn.jpg",
+        "assets/uploads/img-mt4jrto1-xqsk.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jrop9-rgwl.jpg"
     },
     {
       "id": "Kv-11",
@@ -977,14 +1406,31 @@
       "name": "紫霆·裂空闪电",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "全琴精印紫电闪电图样" },
-        { "k": "音色", "v": "明亮有爆发力" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "全琴精印紫电闪电图样"
+        },
+        {
+          "k": "音色",
+          "v": "明亮有爆发力"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，全琴精印紫电闪电图样，裂纹凌厉视觉冲击力强，潮酷十足。音色明亮有爆发力，适合个性演奏，是兼具颜值与实力的潮流乐器。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jt2th-t21b.jpg",
+        "assets/uploads/img-mt4jt5p4-2lz6.jpg",
+        "assets/uploads/img-mt4jt90n-wx9k.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jt2th-t21b.jpg"
     },
     {
       "id": "Kv-12",
@@ -992,14 +1438,31 @@
       "name": "缪斯·古典肖像",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板" },
-        { "k": "工艺", "v": "背板精印古典油画少女肖像" },
-        { "k": "音色", "v": "柔和饱满，手感细腻" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板"
+        },
+        {
+          "k": "工艺",
+          "v": "背板精印古典油画少女肖像"
+        },
+        {
+          "k": "音色",
+          "v": "柔和饱满，手感细腻"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺制作，背板精印古典油画少女肖像，复古油画质感，艺术气息浓郁。音色柔和饱满，演奏手感细腻，兼具西洋艺术美感与演奏实用性。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/uploads/img-mt4jtjgu-7kwx.jpg",
+        "assets/uploads/img-mt4jtm7f-06yb.jpg",
+        "assets/uploads/img-mt4jtq05-sols.jpg"
+      ],
+      "image": "assets/uploads/img-mt4jtjgu-7kwx.jpg"
     },
     {
       "id": "Kv-13",
@@ -1007,14 +1470,29 @@
       "name": "私定·专属纹样定制",
       "tags": [],
       "params": [
-        { "k": "用材", "v": "精选夹板工艺琴体基底" },
-        { "k": "工艺", "v": "全琴专属纹样定制（人像/山水/IP/纪念元素）" },
-        { "k": "音色", "v": "均衡稳定，演奏品质有保障" },
-        { "k": "尺寸", "v": "4/4" }
+        {
+          "k": "用材",
+          "v": "精选夹板工艺琴体基底"
+        },
+        {
+          "k": "工艺",
+          "v": "全琴专属纹样定制（人像/山水/IP/纪念元素）"
+        },
+        {
+          "k": "音色",
+          "v": "均衡稳定，演奏品质有保障"
+        },
+        {
+          "k": "尺寸",
+          "v": "4/4"
+        }
       ],
       "price": "面议",
       "note": "精选夹板工艺琴体基底，支持全琴专属纹样定制——人像肖像、山水风景、IP形象、纪念元素均可按需印制，一对一呈现专属设计，独一无二孤品级。音色均衡稳定，演奏品质有保障，兼具个性表达、纪念意义与收藏价值。",
-      "images": ["assets/img/violin.svg"]
+      "images": [
+        "assets/img/violin.svg"
+      ],
+      "image": "assets/img/violin.svg"
     }
   ]
 }
