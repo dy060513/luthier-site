@@ -120,6 +120,19 @@
       location.hash = "#/";
     });
     renderTab();
+    // hosting-mode banner: local server writes back; static hosting does not
+    fetch("api/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" })
+      .then(function (r) {
+        var isLocal = r.ok || r.status === 400;
+        var bar = document.createElement("p");
+        bar.className = "admin-mode" + (isLocal ? " local" : " static");
+        bar.textContent = isLocal
+          ? "本地服务版：保存后自动写回 data/instruments.json，所有访客可见"
+          : "线上静态版：保存只在本机，别人看不到 —— 请改用局域网版 192.168.1.137:8080 编辑";
+        var head = container.querySelector(".page-head");
+        if (head) head.appendChild(bar);
+      })
+      .catch(function () {});
   }
 
   /* ---------- tabs ---------- */
@@ -468,8 +481,8 @@
       }
       var ok = bridge.saveData(work);
       renderTab();
-      if (ok) toast("已保存（本机生效）");
-      else toast("本机存储空间不足（图片过多过大）——请用「导出 JSON」部署，访客仍能看到新内容");
+      if (ok) toast("已保存（本机暂存）");
+      else toast("本机存储空间不足（图片过多过大）——请用「导出 JSON」部署");
       serverSave();
     } catch (e) {
       toast("保存失败：" + e.message);
@@ -483,10 +496,10 @@
     })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("http")); })
       .then(function (j) {
-        if (j && j.ok) toast("已同步写回 data/instruments.json（所有访客可见）");
+        if (j && j.ok) toast("已同步写回 data/instruments.json —— 所有访客可见");
       })
       .catch(function () {
-        toast("静态托管环境：请点「导出 JSON」下载后替换部署");
+        toast("这是线上静态版：保存只在本机，别人看不到！请改用局域网版 192.168.1.137:8080 编辑才能同步给所有人；或点「导出 JSON」发我部署");
       });
   }
   function exportJson() {

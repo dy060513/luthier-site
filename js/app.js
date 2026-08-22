@@ -396,7 +396,7 @@
     view.innerHTML = '<section class="page-head"><span class="eyebrow">Admin</span><h1>内容管理</h1><p class="page-desc">加载中…</p></section>';
     if (!window.LuthierAdmin) {
       var s = document.createElement("script");
-      s.src = "js/admin.js?v=11";
+      s.src = "js/admin.js?v=12";
       s.onload = function () { window.LuthierAdmin.mount(view, window.LuthierBridge); };
       s.onerror = function () {
         view.innerHTML = '<section><div class="empty"><h3>管理模块加载失败</h3><p>请确认 js/admin.js 文件存在。</p></div></section>';

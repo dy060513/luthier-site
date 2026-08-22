@@ -528,6 +528,10 @@ textarea.admin-input { min-height: 74px; resize: vertical; line-height: 1.6; }
 .instrument-card:hover .card-name { color: var(--wood-2); }
 .footer-name { letter-spacing: 0.1em; }
 
+.admin-mode { margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 12.5px; line-height: 1.6; }
+.admin-mode.local { background: rgba(74, 52, 40, 0.08); color: var(--wood); border: 1px solid rgba(74, 52, 40, 0.25); }
+.admin-mode.static { background: rgba(150, 60, 40, 0.08); color: #8a3a28; border: 1px solid rgba(150, 60, 40, 0.3); }
+
 /* ---------- toast ---------- */
 .toast {
   position: fixed; left: 50%; bottom: calc(28px + env(safe-area-inset-bottom, 0px)); z-index: 100;
