@@ -38,6 +38,36 @@
     sset: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
   };
 
+  /* ---------- i18n (UI chrome only; instrument content stays source-language) ---------- */
+  var LANGS = {
+    zh: { home: "首页", series: "琴系列", fav: "我的收藏", search: "搜索琴款", back: "返回", detail: "详情", zoom: "点击放大", count: "共 {n} 款", found: "找到 {n} 款", all: "全部", empty: "没有找到琴款", emptyTip: "换个关键词或筛选条件试试。", favEmpty: "尚未收藏任何琴款", favEmptyTip: "浏览琴款时点击图片右上角的心形即可收藏。", browseAll: "浏览全部琴款", contact: "联系方式", wechat: "微信", phone: "电话", share: "分享", savePhone: "保存到手机", qr: "展销会二维码", expoTrial: "现场试奏", violin: "小提琴", cello: "大提琴", bass: "低音提琴", addWechat: "加微信咨询", call: "拨打电话", lang: "语言" },
+    en: { home: "Home", series: "Collection", fav: "Favorites", search: "Search", back: "Back", detail: "Details", zoom: "Tap to zoom", count: "{n} items", found: "{n} found", all: "All", empty: "No instruments found", emptyTip: "Try another keyword or filter.", favEmpty: "No favorites yet", favEmptyTip: "Tap the heart on an image to save it.", browseAll: "Browse all", contact: "Contact", wechat: "WeChat", phone: "Phone", share: "Share", savePhone: "Save to phone", qr: "Expo QR", expoTrial: "Try on site", violin: "Violin", cello: "Cello", bass: "Double Bass", addWechat: "Chat on WeChat", call: "Call", lang: "Language" },
+    ja: { home: "ホーム", series: "コレクション", fav: "お気に入り", search: "検索", back: "戻る", detail: "詳細", zoom: "タップで拡大", count: "{n} 点", found: "{n} 件", all: "すべて", empty: "楽器が見つかりません", emptyTip: "キーワードや条件を変えてみてください。", favEmpty: "お気に入りはまだありません", favEmptyTip: "画像のハートをタップして保存します。", browseAll: "すべて見る", contact: "連絡先", wechat: "WeChat", phone: "電話", share: "共有", savePhone: "ホーム画面に保存", qr: "展示会QR", expoTrial: "試奏可", violin: "バイオリン", cello: "チェロ", bass: "コントラバス", addWechat: "WeChatで相談", call: "電話", lang: "言語" },
+    ko: { home: "홈", series: "컬렉션", fav: "즐겨찾기", search: "검색", back: "뒤로", detail: "상세", zoom: "탭하여 확대", count: "{n}개", found: "{n}건", all: "전체", empty: "악기를 찾을 수 없습니다", emptyTip: "다른 검색어나 조건을 사용해 보세요.", favEmpty: "즐겨찾기가 없습니다", favEmptyTip: "이미지의 하트를 눌러 저장하세요.", browseAll: "전체 보기", contact: "연락처", wechat: "위챗", phone: "전화", share: "공유", savePhone: "홈 화면에 저장", qr: "전시회 QR", expoTrial: "시주 가능", violin: "바이올린", cello: "첼로", bass: "콘트라베이스", addWechat: "위챗 상담", call: "전화", lang: "언어" },
+    es: { home: "Inicio", series: "Colección", fav: "Favoritos", search: "Buscar", back: "Atrás", detail: "Detalles", zoom: "Toca para ampliar", count: "{n} artículos", found: "{n} encontrados", all: "Todos", empty: "No se encontraron instrumentos", emptyTip: "Prueba otra palabra o filtro.", favEmpty: "Sin favoritos aún", favEmptyTip: "Toca el corazón en la imagen para guardar.", browseAll: "Ver todos", contact: "Contacto", wechat: "WeChat", phone: "Teléfono", share: "Compartir", savePhone: "Guardar en el móvil", qr: "QR de la feria", expoTrial: "Prueba en vivo", violin: "Violín", cello: "Violonchelo", bass: "Contrabajo", addWechat: "Chatear en WeChat", call: "Llamar", lang: "Idioma" },
+    fr: { home: "Accueil", series: "Collection", fav: "Favoris", search: "Rechercher", back: "Retour", detail: "Détails", zoom: "Toucher pour zoomer", count: "{n} articles", found: "{n} trouvés", all: "Tous", empty: "Aucun instrument trouvé", emptyTip: "Essayez un autre mot-clé ou filtre.", favEmpty: "Aucun favori", favEmptyTip: "Touchez le cœur sur l'image pour enregistrer.", browseAll: "Tout voir", contact: "Contact", wechat: "WeChat", phone: "Téléphone", share: "Partager", savePhone: "Enregistrer sur le téléphone", qr: "QR du salon", expoTrial: "Essai sur place", violin: "Violon", cello: "Violoncelle", bass: "Contrebasse", addWechat: "Discuter sur WeChat", call: "Appeler", lang: "Langue" },
+    de: { home: "Start", series: "Sammlung", fav: "Favoriten", search: "Suchen", back: "Zurück", detail: "Details", zoom: "Zum Vergrößern tippen", count: "{n} Artikel", found: "{n} gefunden", all: "Alle", empty: "Keine Instrumente gefunden", emptyTip: "Anderes Stichwort oder Filter versuchen.", favEmpty: "Noch keine Favoriten", favEmptyTip: "Herz auf dem Bild antippen zum Speichern.", browseAll: "Alle ansehen", contact: "Kontakt", wechat: "WeChat", phone: "Telefon", share: "Teilen", savePhone: "Aufs Handy speichern", qr: "Messe QR", expoTrial: "Vor Ort testen", violin: "Violine", cello: "Cello", bass: "Kontrabass", addWechat: "WeChat-Chat", call: "Anrufen", lang: "Sprache" },
+    ru: { home: "Главная", series: "Коллекция", fav: "Избранное", search: "Поиск", back: "Назад", detail: "Подробнее", zoom: "Нажмите, чтобы увеличить", count: "{n} шт.", found: "Найдено: {n}", all: "Все", empty: "Инструменты не найдены", emptyTip: "Попробуйте другое слово или фильтр.", favEmpty: "Избранного пока нет", favEmptyTip: "Нажмите сердце на изображении, чтобы сохранить.", browseAll: "Смотреть все", contact: "Контакты", wechat: "WeChat", phone: "Телефон", share: "Поделиться", savePhone: "Сохранить на телефон", qr: "QR ярмарки", expoTrial: "Проба на месте", violin: "Скрипка", cello: "Виолончель", bass: "Контрабас", addWechat: "Написать в WeChat", call: "Позвонить", lang: "Язык" }
+  };
+  var curLang = (function () { try { return localStorage.getItem("kaiyue.lang") || "zh"; } catch (e) { return "zh"; } })();
+  var LANG_LABELS = { zh: "中文", en: "English", ja: "日本語", ko: "한국어", es: "Español", fr: "Français", de: "Deutsch", ru: "Русский" };
+  function t(key, vars) {
+    var d = LANGS[curLang] || LANGS.zh;
+    var s = d[key] != null ? d[key] : (LANGS.zh[key] != null ? LANGS.zh[key] : key);
+    if (vars) for (var k in vars) s = s.split("{" + k + "}").join(vars[k]);
+    return s;
+  }
+  function setLang(l) { curLang = l; try { localStorage.setItem("kaiyue.lang", l); } catch (e) {} if (DATA) applyData(); route(); }
+  function sName(sx) { return curLang === "zh" ? sx.name : (t(sx.id) === sx.id ? sx.name : t(sx.id)); }
+  function imgsOf(i) { return (i.images && i.images.length) ? i.images : (i.image ? [i.image] : ["assets/img/violin.svg"]); }
+  /* translated content from data.i18n (falls back to original Chinese) */
+  function tc(field, sid) {
+    if (!DATA || !DATA.i18n) return "";
+    var d = DATA.i18n[curLang];
+    if (!d) return "";
+    return sid ? ((d.seriesDesc && d.seriesDesc[sid]) || "") : (d[field] || "");
+  }
+
   /* ---------- favorites persistence ---------- */
   function loadFavs() {
     try { return JSON.parse(localStorage.getItem(FAV_KEY) || "[]"); } catch (e) { return []; }
@@ -128,24 +158,27 @@
     var seriesRows = series.map(function (sx, i) {
       return '<a class="series-row" href="#/series/' + esc(sx.id) + '">' +
         '<span class="series-num">0' + (i + 1) + "</span>" +
-        '<span><h2>' + esc(sx.name) + '</h2><p class="en">' + esc(sx.en) + "</p></span>" +
-        '<span class="series-desc">' + esc(sx.description) + "</span>" +
+        '<span><h2>' + esc(sName(sx)) + '</h2><p class="en">' + esc(sx.en) + "</p></span>" +
+        '<span class="series-desc">' + esc(tc("", sx.id) || sx.description) + "</span>" +
         '<span class="series-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></span></a>';
     }).join("");
 
     $("view").innerHTML =
       '<section class="hero">' +
+        '<div class="hero-ornament" aria-hidden="true"><img src="assets/img/violin.svg" alt=""></div>' +
+        '<div class="hero-ornament second" aria-hidden="true"><img src="assets/img/cello.svg" alt=""></div>' +
         '<p class="eyebrow reveal">' + esc(s.brandNameEn) + "</p>" +
         '<h1 class="reveal">' + esc(s.brandName) + "</h1>" +
-        '<p class="hero-tagline reveal">' + esc(s.tagline) + "</p>" +
+        '<p class="hero-tagline reveal">' + esc(tc("tagline") || s.tagline) + "</p>" +
         '<p class="hero-en reveal">' + esc(s.brandNameEn) + " · EST. MMXXVI</p>" +
+        '<div class="gold-rule reveal"><span class="diamond"></span></div>' +
         '<div class="expo reveal">' +
-          '<div class="expo-head"><span class="expo-title">' + esc(s.expo.title) + '</span><span class="expo-badge">现场试奏</span></div>' +
-          '<div class="expo-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span>' + esc(s.expo.dates) + " · " + esc(s.expo.venue) + "</span></div>" +
-          '<p class="expo-note">' + esc(s.expo.note) + "</p>" +
+          '<div class="expo-head"><span class="expo-title">' + esc(tc("expoTitle") || s.expo.title) + '</span><span class="expo-badge">' + t("expoTrial") + "</span></div>" +
+          '<div class="expo-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg><span>' + esc((tc("expoDates") || s.expo.dates) + " · " + (tc("expoVenue") || s.expo.venue)) + "</span></div>" +
+          '<p class="expo-note">' + esc(tc("expoNote") || s.expo.note) + "</p>" +
         "</div>" +
       "</section>" +
-      '<section class="series-index"><p class="series-index-title">琴系列 · Collection</p>' + seriesRows + "</section>";
+      '<section class="series-index"><p class="series-index-title">' + t("series") + "</p>" + seriesRows + "</section>";
     observeReveals();
   }
 
@@ -153,10 +186,11 @@
   function cardHtml(i, opts) {
     opts = opts || {};
     var sx = seriesOf(i.series);
+    var imgs = imgsOf(i);
     var specs = (i.params || []).slice(0, 2).map(function (p) { return p.k + "：" + p.v; }).join(" · ");
     return '<article class="instrument-card reveal" data-item="' + esc(i.id) + '" role="button" tabindex="0" aria-label="查看 ' + esc(i.name) + '">' +
       '<div class="card-media">' +
-        '<img src="' + esc(i.image) + '" alt="' + esc(i.name) + '" loading="lazy" decoding="async" data-fallback="' + esc(sx ? sx.image : "") + '">' +
+        '<img src="' + esc(imgs[0]) + '" alt="' + esc(i.name) + '" loading="lazy" decoding="async" data-fallback="' + esc(imgs[1] || imgs[0]) + '">' +
         '<button class="fav-btn' + (isFav(i.id) ? " on" : "") + '" data-fav="' + esc(i.id) + '" aria-label="收藏" aria-pressed="' + isFav(i.id) + '">' + favSvg + "</button>" +
         '<span class="zoom-hint">点击放大</span>' +
       "</div>" +
@@ -170,7 +204,7 @@
 
   function gridHtml(items) {
     if (!items.length) {
-      return '<div class="empty"><h3>没有找到琴款</h3><p>换个关键词或筛选条件试试。</p></div>';
+      return '<div class="empty"><h3>' + t("empty") + '</h3><p>' + t("emptyTip") + "</p></div>";
     }
     return '<div class="grid-list">' + items.map(cardHtml).join("") + "</div>";
   }
@@ -186,7 +220,7 @@
     items.forEach(function (i) { (i.tags || []).forEach(function (t) { if (tagIds.indexOf(t) === -1) tagIds.push(t); }); });
 
     document.title = sx.name + " · " + DATA.site.brandName;
-    var chips = '<button class="filter-chip' + (activeTag === "all" ? " active" : "") + '" data-filter="all">全部</button>' +
+    var chips = '<button class="filter-chip' + (activeTag === "all" ? " active" : "") + '" data-filter="all">' + t("all") + "</button>" +
       tagIds.map(function (t) {
         var tag = tagOf(t);
         return '<button class="filter-chip' + (activeTag === t ? " active" : "") + '" data-filter="' + esc(t) + '">' + esc(tag ? tag.label : t) + "</button>";
@@ -194,12 +228,12 @@
 
     $("view").innerHTML =
       '<section class="page-head">' +
-        '<div class="back-row"><a class="back-pill" href="#/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>返回</a></div>' +
-        '<span class="eyebrow">' + esc(sx.en) + " · Series</span>" +
-        "<h1>" + esc(sx.name) + "</h1>" +
-        '<p class="page-desc">' + esc(sx.description) + "</p>" +
+        '<div class="back-row"><a class="back-pill" href="#/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>' + t("back") + "</a></div>" +
+        '<span class="eyebrow">' + esc(sx.en) + " · " + t("series") + "</span>" +
+        "<h1>" + esc(sName(sx)) + "</h1>" +
+        '<p class="page-desc">' + esc(tc("", id) || sx.description) + "</p>" +
         '<div class="chip-row" style="margin-top:18px">' + chips + "</div>" +
-        '<p class="result-count">共 ' + filtered.length + " 款</p>" +
+        '<p class="result-count">' + t("count", { n: filtered.length }) + "</p>" +
       "</section>" +
       "<section>" + gridHtml(filtered) + "</section>";
     observeReveals();
@@ -210,6 +244,7 @@
     var i = itemOf(id);
     if (!i) { location.hash = "#/"; return; }
     var sx = seriesOf(i.series);
+    var imgs = imgsOf(i);
     document.title = i.name + " · " + DATA.site.brandName;
     var params = (i.params || []).map(function (p) {
       return '<div class="param-row"><dt>' + esc(p.k) + "</dt><dd>" + esc(p.v) + "</dd></div>";
@@ -218,25 +253,35 @@
     $("view").innerHTML =
       '<section class="detail">' +
         '<div class="detail-head">' +
-          '<a class="back-link" href="#/series/' + esc(i.series) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>返回 ' + esc(sx ? sx.name : "") + "</a>" +
+          '<a class="back-link" href="#/series/' + esc(i.series) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg>' + t("back") + " " + esc(sx ? sName(sx) : "") + "</a>" +
         "</div>" +
         '<div class="detail-media reveal">' +
-          '<img id="detailImg" src="' + esc(i.image) + '" alt="' + esc(i.name) + '" data-fallback="' + esc(sx ? sx.image : "") + '" data-full="' + esc(i.image) + '">' +
+          '<div class="carousel">' +
+            '<div class="carousel-track">' + imgs.map(function (src, j) {
+              return '<img src="' + esc(src) + '" alt="' + esc(i.name) + " " + (j + 1) + '" loading="lazy" decoding="async" data-full="' + esc(src) + '">';
+            }).join("") + "</div>" +
+            (imgs.length > 1
+              ? '<button class="carousel-arrow prev" data-car-prev aria-label="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+                '<button class="carousel-arrow next" data-car-next aria-label="next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>' +
+                '<div class="carousel-dots" id="carDots"></div>'
+              : "") +
+            '<span class="zoom-hint">' + t("zoom") + "</span>" +
+          "</div>" +
           '<button class="fav-btn' + (isFav(i.id) ? " on" : "") + '" data-fav="' + esc(i.id) + '" aria-label="收藏" aria-pressed="' + isFav(i.id) + '">' + favSvg + "</button>" +
         "</div>" +
         '<div class="detail-title reveal">' +
           '<h1>' + esc(i.name) + "</h1>" +
-          '<p class="detail-series">' + esc(sx ? sx.en : "") + " · " + esc(sx ? sx.name : "") + "</p>" +
+          '<p class="detail-series">' + esc(sx ? sx.en : "") + " · " + esc(sx ? sName(sx) : "") + "</p>" +
           '<div class="chip-row detail-tags">' + (i.tags || []).map(tagHtml).join("") + "</div>" +
           '<div class="detail-price">' + priceHtml(i) + "</div>" +
           (i.note ? '<p class="detail-note">' + esc(i.note) + "</p>" : "") +
         "</div>" +
         '<div class="param-table reveal">' + params + "</div>" +
         '<div class="detail-actions reveal">' +
-          '<button class="btn btn-solid" id="dContactWechat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.5 5C4.9 5 2 7.4 2 10.4c0 1.7.9 3.2 2.4 4.2L3.8 17l2.6-1.3c.7.2 1.4.3 2.1.3h.4"/><path d="M14 9.6c3.5 0 6.3 2.2 6.3 5 0 1.6-.9 3-2.2 4l.7 2.4-3.1-1.5a7.6 7.6 0 0 1-1.7.2c-3.5 0-6.3-2.2-6.3-5s2.8-5 6.3-5z"/></svg>加微信咨询</button>' +
+          '<button class="btn btn-solid" id="dContactWechat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.5 5C4.9 5 2 7.4 2 10.4c0 1.7.9 3.2 2.4 4.2L3.8 17l2.6-1.3c.7.2 1.4.3 2.1.3h.4"/><path d="M14 9.6c3.5 0 6.3 2.2 6.3 5 0 1.6-.9 3-2.2 4l.7 2.4-3.1-1.5a7.6 7.6 0 0 1-1.7.2c-3.5 0-6.3-2.2-6.3-5s2.8-5 6.3-5z"/></svg>' + t("addWechat") + "</button>" +
           '<div class="btn-row">' +
-            '<a class="btn btn-outline" href="tel:' + esc(String(DATA.contact.phone).replace(/[^0-9]/g, "")) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>拨打电话</a>' +
-            '<button class="btn btn-outline" id="dShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.6"/><circle cx="17.5" cy="5.5" r="2.6"/><circle cx="17.5" cy="18.5" r="2.6"/><path d="m8.4 10.8 6.8-4m-6.8 6.4 6.8 4"/></svg>分享</a>' +
+            '<a class="btn btn-outline" href="tel:' + esc(String(DATA.contact.phone).replace(/[^0-9]/g, "")) + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>' + t("call") + "</a>" +
+            '<button class="btn btn-outline" id="dShare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.6"/><circle cx="17.5" cy="5.5" r="2.6"/><circle cx="17.5" cy="18.5" r="2.6"/><path d="m8.4 10.8 6.8-4m-6.8 6.4 6.8 4"/></svg>' + t("share") + "</button>" +
           "</div>" +
         "</div>" +
       "</section>";
@@ -245,9 +290,7 @@
       copyText(DATA.contact.wechat, "微信号已复制：" + DATA.contact.wechat);
     });
     $("dShare").addEventListener("click", function () { sharePage(i.name); });
-    $("detailImg").addEventListener("click", function (e) {
-      openLightbox(e.target.dataset.full, i.name);
-    });
+    initCarousel(i.name);
     observeReveals();
   }
 
@@ -256,13 +299,13 @@
     document.title = "我的收藏 · " + DATA.site.brandName;
     var items = favs.map(itemOf).filter(Boolean);
     $("view").innerHTML =
-      '<section class="page-head"><span class="eyebrow">Favorites</span><h1>我的收藏</h1>' +
-      '<p class="page-desc">把想细看的琴收在这里，展销会现场逐一试奏。</p></section><section>' +
+      '<section class="page-head"><span class="eyebrow">Favorites</span><h1>' + t("fav") + "</h1>" +
+      '<p class="page-desc">' + t("favEmptyTip") + "</p></section><section>" +
       (items.length
         ? gridHtml(items)
         : '<div class="empty"><div class="empty-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 20s-7.5-4.6-9.5-9C1 7.5 3.4 5 6.2 5c1.9 0 3.6 1 4.6 2.6h2.4C14.2 6 15.9 5 17.8 5 20.6 5 23 7.5 21.5 11c-2 4.4-9.5 9-9.5 9z"/></svg></div>' +
-          "<h3>尚未收藏任何琴款</h3><p>浏览琴款时点击图片右上角的心形即可收藏。</p>" +
-          '<a class="btn btn-solid" href="#/">浏览全部琴款</a></div>') +
+          "<h3>" + t("favEmpty") + "</h3><p>" + t("favEmptyTip") + "</p>" +
+          '<a class="btn btn-solid" href="#/">' + t("browseAll") + "</a></div>") +
       "</section>";
     observeReveals();
   }
@@ -273,11 +316,11 @@
     var q = store.sget("search-q") || "";
     var sFilter = store.sget("search-series") || "all";
     var tFilter = store.sget("search-tag") || "all";
-    var seriesChips = '<button class="filter-chip' + (sFilter === "all" ? " active" : "") + '" data-sf="all">全部系列</button>' +
+    var seriesChips = '<button class="filter-chip' + (sFilter === "all" ? " active" : "") + '" data-sf="all">' + t("all") + "</button>" +
       DATA.series.map(function (s) {
         return '<button class="filter-chip' + (sFilter === s.id ? " active" : "") + '" data-sf="' + esc(s.id) + '">' + esc(s.name) + "</button>";
       }).join("");
-    var tagChips = '<button class="filter-chip' + (tFilter === "all" ? " active" : "") + '" data-tf="all">全部标签</button>' +
+    var tagChips = '<button class="filter-chip' + (tFilter === "all" ? " active" : "") + '" data-tf="all">' + t("all") + "</button>" +
       DATA.tags.map(function (t) {
         return '<button class="filter-chip' + (tFilter === t.id ? " active" : "") + '" data-tf="' + esc(t.id) + '">' + esc(t.label) + "</button>";
       }).join("");
@@ -285,14 +328,14 @@
     var results = filterItems(q, sFilter, tFilter);
     $("view").innerHTML =
       '<section class="page-head">' +
-        '<span class="eyebrow">Search</span><h1>搜索琴款</h1>' +
+        '<span class="eyebrow">Search</span><h1>' + t("search") + "</h1>" +
         '<div class="search-box" style="margin-top:20px">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>' +
           '<input id="searchInput" type="search" placeholder="输入琴名、用材、系列…" value="' + esc(q) + '">' +
         "</div>" +
         '<div class="chip-row" style="margin-top:16px">' + seriesChips + "</div>" +
         '<div class="chip-row" style="margin-top:10px">' + tagChips + "</div>" +
-        '<p class="result-count">找到 ' + results.length + " 款</p>" +
+        '<p class="result-count">' + t("found", { n: results.length }) + "</p>" +
       "</section>" +
       "<section>" + gridHtml(results) + "</section>";
 
@@ -332,7 +375,7 @@
     view.innerHTML = '<section class="page-head"><span class="eyebrow">Admin</span><h1>内容管理</h1><p class="page-desc">加载中…</p></section>';
     if (!window.LuthierAdmin) {
       var s = document.createElement("script");
-      s.src = "js/admin.js?v=8";
+      s.src = "js/admin.js?v=11";
       s.onload = function () { window.LuthierAdmin.mount(view, window.LuthierBridge); };
       s.onerror = function () {
         view.innerHTML = '<section><div class="empty"><h3>管理模块加载失败</h3><p>请确认 js/admin.js 文件存在。</p></div></section>';
@@ -341,6 +384,36 @@
     } else {
       window.LuthierAdmin.mount(view, window.LuthierBridge);
     }
+  }
+
+  /* ---------- carousel (native scroll-snap; swipe is free) ---------- */
+  function initCarousel(name) {
+    var track = document.querySelector(".detail-media .carousel-track");
+    if (!track) return;
+    var trackImgs = Array.prototype.slice.call(track.querySelectorAll("img"));
+    var dotsBox = document.getElementById("carDots");
+    var idx = 0;
+    function sync() {
+      if (!trackImgs.length) return;
+      idx = Math.min(Math.max(Math.round(track.scrollLeft / (track.clientWidth || 1)), 0), trackImgs.length - 1);
+      if (dotsBox) Array.prototype.forEach.call(dotsBox.children, function (d, j) { d.classList.toggle("on", j === idx); });
+    }
+    if (dotsBox) {
+      trackImgs.forEach(function (_, j) {
+        var d = document.createElement("button");
+        d.className = "carousel-dot" + (j === 0 ? " on" : "");
+        d.setAttribute("aria-label", String(j + 1));
+        d.addEventListener("click", function () { track.scrollTo({ left: j * track.clientWidth, behavior: "smooth" }); });
+        dotsBox.appendChild(d);
+      });
+      track.addEventListener("scroll", sync, { passive: true });
+    }
+    var prev = document.querySelector("[data-car-prev]"), next = document.querySelector("[data-car-next]");
+    if (prev) prev.addEventListener("click", function () { track.scrollBy({ left: -track.clientWidth, behavior: "smooth" }); });
+    if (next) next.addEventListener("click", function () { track.scrollBy({ left: track.clientWidth, behavior: "smooth" }); });
+    trackImgs.forEach(function (im) {
+      im.addEventListener("click", function () { sync(); openLightbox(im.getAttribute("data-full") || im.src, name); });
+    });
   }
 
   /* ---------- reveal on scroll ---------- */
@@ -522,7 +595,25 @@
     $("footerPhone").textContent = DATA.contact.phone;
     $("footerPhone").href = "tel:" + DATA.contact.phone.replace(/[^0-9]/g, "");
     $("footerNote").textContent = DATA.contact.wechatNote + " · " + DATA.contact.phoneNote;
-    document.title = DATA.site.brandName + " · 手工提琴";
+    document.title = DATA.site.brandName + " · " + (curLang === "zh" ? "手工提琴" : "String Instruments");
+    // language select + translated chrome
+    var langSel = $("langSel");
+    if (langSel) {
+      if (!langSel.options.length) {
+        langSel.innerHTML = Object.keys(LANGS).map(function (l) { return '<option value="' + l + '">' + (LANG_LABELS[l] || l) + "</option>"; }).join("");
+      }
+      langSel.value = curLang;
+      langSel.onchange = function () { setLang(langSel.value); };
+    }
+    var rh = $("railHome"); if (rh) rh.textContent = t("home");
+    var rf = $("railFav"); if (rf) rf.textContent = t("fav");
+    var fl = $("footerContactLabel"); if (fl) fl.textContent = t("contact");
+    var lbls = document.querySelectorAll(".footer-actions [data-lbl]");
+    Array.prototype.forEach.call(lbls, function (el) {
+      el.textContent = t(el.getAttribute("data-lbl"));
+    });
+    var tb = document.querySelector(".top-admin");
+    if (tb) tb.textContent = t("admin") !== "admin" ? t("admin") : "管理";
   }
 
   /* ---------- admin bridge ---------- */

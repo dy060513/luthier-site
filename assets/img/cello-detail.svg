@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="大提琴细节视角">
+  <rect width="480" height="600" fill="#efe8d8"/>
+  <rect x="18" y="18" width="444" height="564" rx="12" fill="none" stroke="#b9985f" stroke-opacity="0.7" stroke-width="1.5"/>
+  <g fill="none" stroke="#1d1815" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M240 118 C 262 118 280 126 288 140 C 304 166 322 178 322 210 C 322 244 300 268 288 282 C 280 292 270 300 266 306 C 270 314 280 322 288 334 C 300 350 330 372 330 420 C 330 462 300 486 240 486 C 180 486 150 462 150 420 C 150 372 180 350 192 334 C 200 322 210 314 214 306 C 210 300 200 292 192 282 C 180 268 158 244 158 210 C 158 178 176 166 192 140 C 200 126 218 118 240 118 Z"/>
+    <path d="M198 260 C 210 264 216 274 214 286 C 210 304 196 310 192 324"/>
+    <path d="M282 260 C 270 264 264 274 266 286 C 270 304 284 310 288 324"/>
+  </g>
+  <g font-family="Outfit, sans-serif" font-size="10" letter-spacing="4" fill="#b9985f" text-anchor="middle">
+    <text x="240" y="546">DETAIL · SIDE VIEW</text>
+    <text x="240" y="568" font-size="8.5" letter-spacing="3" fill="#a99a7f">CELLO · PHOTO SLOT</text>
+  </g>
+</svg>

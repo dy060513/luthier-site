@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=9">
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body>
 <div class="app">
@@ -20,6 +20,7 @@
       <span class="brand-name" id="brandName">拾弦提琴工坊</span>
     </button>
     <div class="topbar-actions">
+      <select class="lang-select" id="langSel" aria-label="Language"></select>
       <button class="top-admin" data-route="/admin" aria-label="内容管理">管理</button>
       <button class="icon-btn" id="btnSearch" data-route="/search" aria-label="搜索">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -32,11 +33,11 @@
   </header>
 
   <nav class="series-rail" id="seriesRail" aria-label="系列切换">
-    <button class="rail-chip" data-route="/">首页</button>
+    <button class="rail-chip" data-route="/" id="railHome">首页</button>
     <button class="rail-chip" data-series="violin">小提琴</button>
     <button class="rail-chip" data-series="cello">大提琴</button>
     <button class="rail-chip" data-series="bass">低音提琴</button>
-    <button class="rail-chip" data-route="/favorites">收藏</button>
+    <button class="rail-chip" data-route="/favorites" id="railFav">收藏</button>
   </nav>
 
   <main id="view" class="view" aria-live="polite"></main>
@@ -47,7 +48,7 @@
       <p class="footer-en" id="footerEn">SHIXIAN · LUTHIER</p>
     </div>
     <div class="footer-contact">
-      <p class="footer-label">联系方式</p>
+      <p class="footer-label" id="footerContactLabel">联系方式</p>
       <p class="contact-line">微信 <span id="footerWechat">shixian_luthier</span></p>
       <p class="contact-line">电话 <a href="tel:13800000000" id="footerPhone">138-0000-0000</a></p>
       <p class="footer-note" id="footerNote"></p>
@@ -55,15 +56,15 @@
     <div class="footer-actions">
       <button class="btn btn-ghost" id="btnShare">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="12" r="2.6"/><circle cx="17.5" cy="5.5" r="2.6"/><circle cx="17.5" cy="18.5" r="2.6"/><path d="m8.4 10.8 6.8-4m-6.8 6.4 6.8 4"/></svg>
-        分享
+        <span data-lbl="share">分享</span>
       </button>
       <button class="btn btn-ghost" id="btnSavePhone">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M11 18.5h2"/></svg>
-        保存到手机
+        <span data-lbl="savePhone">保存到手机</span>
       </button>
       <button class="btn btn-solid" id="btnQr">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h1M20 20h1"/></svg>
-        展销会二维码
+        <span data-lbl="qr">展销会二维码</span>
       </button>
     </div>
     <p class="footer-copy">手工制作 · 支持定制 · 展会现场可试奏 · <button class="admin-link" data-route="/admin">管理内容</button></p>
@@ -89,6 +90,6 @@
 
 <div class="toast" id="toast" hidden></div>
 
-<script src="js/app.js?v=13" defer></script>
+<script src="js/app.js?v=17" defer></script>
 </body>
 </html>

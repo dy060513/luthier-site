@@ -58,7 +58,7 @@
   /* ---------- passcode gate ---------- */
   function gate() {
     container.innerHTML =
-      '<section class="page-head"><span class="eyebrow">Admin</span><h1>内容管理</h1>' +
+      '<section class="page-head"><div class="back-row"><a class="back-pill" href="#/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>返回</a></div><span class="eyebrow">Admin</span><h1>内容管理</h1>' +
       '<p class="page-desc">输入管理口令进入编辑模式。</p></section>' +
       '<section><div class="admin-card">' +
       '<label class="admin-label">管理口令</label>' +
@@ -81,7 +81,7 @@
     work = JSON.parse(JSON.stringify(bridge.getData()));
     if (!work || !work.site) { toast("数据不可用"); return; }
     container.innerHTML =
-      '<section class="page-head"><span class="eyebrow">Admin</span><h1>内容管理</h1>' +
+      '<section class="page-head"><div class="back-row"><a class="back-pill" href="#/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>返回</a></div><span class="eyebrow">Admin</span><h1>内容管理</h1>' +
       '<p class="page-desc">修改后点「保存」。本机立即生效；本地 server.js 托管会同步写回 data/instruments.json；静态托管（Vercel / GitHub Pages）请用「导出 JSON」下载后替换部署。</p></section>' +
       '<section class="admin-toolbar">' +
         '<div class="admin-tabs" id="admTabs">' +
@@ -213,22 +213,33 @@
         div.querySelector(".admin-del").addEventListener("click", function () { div.remove(); });
         rows.appendChild(div);
       });
-      var img = document.getElementById("instImage");
-      var preview = document.getElementById("instPreview");
+      var imgBox = document.getElementById("instImages");
       var hint = document.getElementById("imgHint");
-      if (img && preview) {
-        var upd = function () {
-          var v = img.value.trim();
-          if (v) { preview.src = v; preview.style.display = "block"; }
-          else { preview.style.display = "none"; }
-          if (hint) hint.textContent = v && v.indexOf("data:") === 0
-            ? "内嵌图片约 " + Math.round(v.length / 1024) + " KB（已随数据保存，所有人可见同一张）"
-            : /^[A-Za-z]:[\\/]/.test(v) || v.indexOf("file://") === 0
-              ? "警告：这是本地磁盘路径，访客无法访问——请用上方「粘贴图片」内嵌真实图片"
-              : v ? "图片来源：路径/网址（请确认文件存在）" : "粘贴或选择图片后，这里显示预览";
-        };
-        img.addEventListener("input", upd);
-        // paste zone + file picker
+      function addImageRow(value) {
+        if (!imgBox) return;
+        var row = document.createElement("div");
+        row.className = "img-row";
+        row.innerHTML = '<img alt="预览" data-pv><input class="admin-input" data-path value="' + esc(value) + '">' +
+          '<span class="img-order"><button type="button" data-up title="上移">&#8593;</button><button type="button" data-down title="下移">&#8595;</button><button type="button" data-del class="img-del">&#10005;</button></span>';
+        var im = row.querySelector("img");
+        var inp = row.querySelector("[data-path]");
+        im.src = value || "assets/img/violin.svg";
+        inp.addEventListener("input", function () { im.src = inp.value.trim() || "assets/img/violin.svg"; });
+        row.querySelector("[data-up]").addEventListener("click", function () {
+          if (row.previousElementSibling) imgBox.insertBefore(row, row.previousElementSibling);
+        });
+        row.querySelector("[data-down]").addEventListener("click", function () {
+          if (row.nextElementSibling) imgBox.insertBefore(row.nextElementSibling, row);
+        });
+        row.querySelector("[data-del]").addEventListener("click", function () { row.remove(); });
+        imgBox.appendChild(row);
+        if (hint) hint.textContent = "共 " + imgBox.children.length + " 张图；用上下箭头调整顺序（即详情页滑动顺序）";
+      }
+      if (imgBox) {
+        var cur = work.instruments[editing];
+        var existing = (cur && cur.images && cur.images.length) ? cur.images : (cur && cur.image ? [cur.image] : []);
+        existing.forEach(addImageRow);
+        // paste zone + file picker (append)
         var drop = document.getElementById("imgDrop");
         if (drop) {
           drop.addEventListener("click", function () {
@@ -241,36 +252,29 @@
               if (items[i].kind === "file" && /^image\//.test(items[i].type)) {
                 e.preventDefault();
                 processImageFile(items[i].getAsFile());
-                return;
               }
             }
           });
           drop.addEventListener("keydown", function (e) {
             if ((e.ctrlKey || e.metaKey) && e.key === "v") {
-              // allow the native paste to flow into the document for the drop zone
-              var ev = new ClipboardEvent("paste", { bubbles: true, cancelable: true });
-              // let the document-level paste reach us: dispatch on the zone
-              drop.dispatchEvent(ev);
+              drop.dispatchEvent(new ClipboardEvent("paste", { bubbles: true, cancelable: true }));
             }
           });
         }
         var fileInput = document.getElementById("instFile");
         if (fileInput) {
           fileInput.addEventListener("change", function (e) {
-            if (e.target.files && e.target.files[0]) processImageFile(e.target.files[0]);
+            var fs = e.target.files || [];
+            for (var i = 0; i < fs.length; i++) processImageFile(fs[i]);
             e.target.value = "";
           });
         }
         function processImageFile(file) {
           imageToDataUrl(file, 1280, 1280, 0.8, function (dataUrl, info) {
-            img.value = dataUrl;
-            preview.src = dataUrl;
-            preview.style.display = "block";
-            if (hint) hint.textContent = "已压缩为 " + info.w + "×" + info.h + "，约 " + info.kb + " KB；保存后所有人可见同一张图";
-            toast("图片已就绪，记得点「保存修改」");
+            addImageRow(dataUrl);
+            toast("已添加第 " + imgBox.children.length + " 张（" + info.w + "×" + info.h + "，" + info.kb + " KB）");
           });
         }
-        upd();
       }
     }
   }
@@ -411,13 +415,12 @@
         '<div><label class="admin-label" style="margin-top:0">编号 id（唯一）</label><input class="admin-input" id="instId" value="' + esc(i.id) + '"></div>' +
       "</div>" +
       '<label class="admin-label">所属系列</label><select class="admin-input" id="instSeries">' + seriesOpts + "</select>" +
-      '<label class="admin-label">图片（可直接粘贴 / 选文件 / 或填路径网址）</label>' +
+      '<label class="admin-label">图片（多张：粘贴 / 选文件 / 或填路径，逐张添加）</label>' +
       '<div class="img-drop" id="imgDrop" tabindex="0">' +
-        '<p class="img-drop-hint">在此处 <b>Ctrl+V 粘贴图片</b>，或点击选择文件<br><span>自动压缩为网页图（建议单张 ≤200KB）</span></p>' +
-        '<input type="file" id="instFile" accept="image/*" hidden>' +
+        '<p class="img-drop-hint">在此处 <b>Ctrl+V 粘贴图片</b>，或点击选择文件（可多张）<br><span>自动压缩为网页图；第一张为列表缩略图，详情页左右滑动浏览</span></p>' +
+        '<input type="file" id="instFile" accept="image/*" multiple hidden>' +
       "</div>" +
-      '<input class="admin-input" id="instImage" placeholder="也可直接粘贴图片路径或网址（如 assets/img/violin.svg）" value="' + esc(i.image || "") + '">' +
-      '<img id="instPreview" alt="预览" class="inst-preview" style="display:none">' +
+      '<div class="img-rows" id="instImages"></div>' +
       '<p class="admin-hint" id="imgHint"></p>' +
       '<label class="admin-label">标签（可多选）</label><div class="tag-checks" id="instTags">' + tagChecks + "</div>" +
       '<label class="admin-label">价格（如 ¥28,000 或 面议）</label><input class="admin-input" id="instPrice" value="' + esc(i.price || "") + '">' +
@@ -433,11 +436,17 @@
     i.name = val("instName");
     i.id = val("instId");
     i.series = val("instSeries");
-    i.image = val("instImage");
+    i.image = "";
     i.price = val("instPrice");
     i.note = val("instNote");
     i.tags = [];
     $$("#instTags input:checked").forEach(function (c) { i.tags.push(c.getAttribute("data-tag")); });
+    i.images = [];
+    $$("#instImages .img-row [data-path]").forEach(function (inp) {
+      var v = inp.value.trim();
+      if (v) i.images.push(v);
+    });
+    i.image = i.images[0] || "";
     i.params = [];
     $$("#paramRows .param-row-admin").forEach(function (row) {
       var k = row.querySelector("[data-pk]").value.trim();

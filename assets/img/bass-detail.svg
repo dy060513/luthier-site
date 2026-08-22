@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 600" role="img" aria-label="低音提琴细节视角">
+  <rect width="480" height="600" fill="#efe8d8"/>
+  <rect x="18" y="18" width="444" height="564" rx="12" fill="none" stroke="#b9985f" stroke-opacity="0.7" stroke-width="1.5"/>
+  <g fill="none" stroke="#1d1815" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M240 168 C 268 174 296 196 314 250 C 330 300 346 360 344 424 C 342 462 312 500 240 500 C 168 500 138 462 136 424 C 134 360 150 300 166 250 C 184 196 212 174 240 168 Z"/>
+    <path d="M200 290 C 214 296 220 310 218 326 C 214 346 200 352 196 368"/>
+    <path d="M280 290 C 266 296 260 310 262 326 C 266 346 280 352 284 368"/>
+  </g>
+  <g font-family="Outfit, sans-serif" font-size="10" letter-spacing="4" fill="#b9985f" text-anchor="middle">
+    <text x="240" y="556">DETAIL · SIDE VIEW</text>
+    <text x="240" y="578" font-size="8.5" letter-spacing="3" fill="#a99a7f">DOUBLE BASS · PHOTO SLOT</text>
+  </g>
+</svg>

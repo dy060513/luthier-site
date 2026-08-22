@@ -16,6 +16,15 @@
     "phone": "13815975529",
     "phoneNote": "工作日 9:00 – 18:00"
   },
+  "i18n": {
+    "en": { "tagline": "Wood as bones, strings as voice. Every instrument is made for the player's hands.", "expoTitle": "2026 International Musical Instrument Expo", "expoDates": "Sep 18 - Sep 20", "expoVenue": "Shanghai New International Expo Center · Hall W4 · Booth B-12", "expoNote": "Try on site · First 50 daily visitors receive a custom-work discount", "seriesDesc": { "violin": "Handcrafted violins from 4/4 to 1/2. Spruce tops, maple backs, voiced one by one.", "cello": "Warm yet restrained. Wide body and long arch, breathing room for the low register.", "bass": "The foundation of the orchestra. Large handcrafted double basses, from soloist to orchestral grade." } },
+    "ja": { "tagline": "木を骨に、弦を声に。すべての楽器は奏者の手のために生まれます。", "expoTitle": "2026 国際楽器展示会", "expoDates": "9月18日 - 9月20日", "expoVenue": "上海新国際博覧中心 · W4 ホール · B-12 ブース", "expoNote": "会場で試奏可 · 毎日先着50名様にカスタム工賃割引", "seriesDesc": { "violin": "4/4から1/2まで、ハンドメイドのバイオリン。スプルース表板・メイプル裏板、一本ずつ音を調整。", "cello": "深く落ち着いた音色。幅広いボディと長いアーチが低音域に余白を。", "bass": "オーケストラの土台。ソリスト用からオーケストラ用まで受注制作。" } },
+    "ko": { "tagline": "나무를 뼈로, 현을 목소리로. 모든 악기는 연주자의 손을 위해 태어납니다.", "expoTitle": "2026 국제 악기 박람회", "expoDates": "9월 18일 - 9월 20일", "expoVenue": "상하이 신국제박람센터 · W4 홀 · B-12 부스", "expoNote": "현장 시주 가능 · 매일 선착순 50명 맞춤 공임 할인", "seriesDesc": { "violin": "4/4부터 1/2까지, 핸드메이드 바이올린. 스프루스 상판·메이플 하판, 한 대씩 음색 조율.", "cello": "깊고 절제된 음색. 넓은 몸통과 긴 아치가 저음역에 여백을.", "bass": "오케스트라의 기초. 독주용부터 오케스트라용까지 주문 제작." } },
+    "es": { "tagline": "Madera como hueso, cuerdas como voz. Cada instrumento nace para las manos del intérprete.", "expoTitle": "Expo Internacional de Instrumentos 2026", "expoDates": "18 - 20 de septiembre", "expoVenue": "Centro de Exposiciones Internacional de Shanghái · Pabellón W4 · Stand B-12", "expoNote": "Prueba en el sitio · Los primeros 50 visitantes diarios reciben descuento", "seriesDesc": { "violin": "Violines artesanales de 4/4 a 1/2. Tapa de abeto, fondo de arce, entonados uno a uno.", "cello": "Cálido y contenido. Cuerpo ancho y arco largo, aire para el registro grave.", "bass": "La base de la orquesta. Contrabajos artesanales, de solista a orquesta." } },
+    "fr": { "tagline": "Le bois pour os, les cordes pour voix. Chaque instrument naît pour les mains du musicien.", "expoTitle": "Salon international des instruments 2026", "expoDates": "18 - 20 septembre", "expoVenue": "Centre d'expositions international de Shanghai · Hall W4 · Stand B-12", "expoNote": "Essai sur place · Les 50 premiers visiteurs quotidiens : remise sur le travail", "seriesDesc": { "violin": "Violons artisanaux du 4/4 au 1/2. Table en épicéa, fond en érable, harmonisés un à un.", "cello": "Chaleureux et retenu. Corps large et arche longue, respiration pour le grave.", "bass": "La base de l'orchestre. Contrebasses artisanales, de soliste à orchestre." } },
+    "de": { "tagline": "Holz als Knochen, Saiten als Stimme. Jedes Instrument entsteht für die Hände des Spielers.", "expoTitle": "Internationale Musikinstrumenten-Messe 2026", "expoDates": "18. - 20. September", "expoVenue": "Shanghai New International Expo Center · Halle W4 · Stand B-12", "expoNote": "Vor Ort testen · Die ersten 50 Besucher täglich erhalten Rabatt auf Handarbeit", "seriesDesc": { "violin": "Handgefertigte Violinen von 4/4 bis 1/2. Fichtendecke, Ahornboden, einzeln klanglich abgestimmt.", "cello": "Warm und zurückhaltend. Breiter Korpus und langer Bogen, Luft für den tiefen Bereich.", "bass": "Das Fundament des Orchesters. Handgefertigte Kontrabässe, vom Solisten bis zur Orchesterqualität." } },
+    "ru": { "tagline": "Дерево — кость, струны — голос. Каждый инструмент рождается для рук исполнителя.", "expoTitle": "Международная выставка музыкальных инструментов 2026", "expoDates": "18–20 сентября", "expoVenue": "Шанхайский новый международный выставочный центр · зал W4 · стенд B-12", "expoNote": "Проба на месте · Первым 50 посетителям ежедневно — скидка на заказ", "seriesDesc": { "violin": "Ручные скрипки от 4/4 до 1/2. Еловая дека, кленовая спинка, настройка каждой.", "cello": "Тёплое и сдержанное звучание. Широкий корпус и длинная арка — воздух для низкого регистра.", "bass": "Основа оркестра. Ручные контрабасы от солиста до оркестрового класса." } }
+  },
   "series": [
     {
       "id": "violin",
@@ -23,7 +32,7 @@
       "en": "Violin",
       "order": 1,
       "description": "从 4/4 到 1/2，手工演奏级小提琴。云杉面板与枫木背板，逐把调试音色。",
-      "image": "assets/img/violin.svg"
+      "images": ["assets/img/violin.svg"]
     },
     {
       "id": "cello",
@@ -31,7 +40,7 @@
       "en": "Cello",
       "order": 2,
       "description": "浑厚而克制。宽幅琴身与长弧琴头，为低音区保留呼吸的余地。",
-      "image": "assets/img/cello.svg"
+      "images": ["assets/img/cello.svg"]
     },
     {
       "id": "bass",
@@ -39,7 +48,7 @@
       "en": "Double Bass",
       "order": 3,
       "description": "乐队的地基。大尺寸手工制作，从独奏级到乐团级均可定制。",
-      "image": "assets/img/bass.svg"
+      "images": ["assets/img/bass.svg"]
     }
   ],
   "tags": [
@@ -69,7 +78,7 @@
       "id": "v-01",
       "series": "violin",
       "name": "晨光 · 1716 复刻",
-      "image": "D:\\桌面\\pdd小店\\样品\\金丝楠木秦\\小提琴，背.jpg",
+      "images": ["assets/img/violin.svg", "assets/img/violin-detail.svg"],
       "tags": [
         "featured",
         "flagship"
@@ -99,7 +108,7 @@
       "id": "v-02",
       "series": "violin",
       "name": "秋水 · 城市演奏系列",
-      "image": "assets/img/violin.svg",
+      "images": ["assets/img/violin.svg"],
       "tags": [
         "flagship"
       ],
@@ -128,7 +137,7 @@
       "id": "v-03",
       "series": "violin",
       "name": "初雪 · 进阶系列",
-      "image": "assets/img/violin.svg",
+      "images": ["assets/img/violin.svg"],
       "tags": [
         "new"
       ],
@@ -157,7 +166,7 @@
       "id": "c-01",
       "series": "cello",
       "name": "深谷 · 大提琴",
-      "image": "assets/img/cello.svg",
+      "images": ["assets/img/cello.svg", "assets/img/cello-detail.svg"],
       "tags": [
         "featured"
       ],
@@ -186,7 +195,7 @@
       "id": "c-02",
       "series": "cello",
       "name": "晚风 · 大提琴",
-      "image": "assets/img/cello.svg",
+      "images": ["assets/img/cello.svg"],
       "tags": [
         "flagship"
       ],
@@ -215,7 +224,7 @@
       "id": "b-01",
       "series": "bass",
       "name": "大地 · 低音提琴",
-      "image": "assets/img/bass.svg",
+      "images": ["assets/img/bass.svg", "assets/img/bass-detail.svg"],
       "tags": [
         "featured",
         "signature"
@@ -245,7 +254,7 @@
       "id": "b-02",
       "series": "bass",
       "name": "远山 · 低音提琴",
-      "image": "assets/img/bass.svg",
+      "images": ["assets/img/bass.svg"],
       "tags": [
         "flagship"
       ],
@@ -274,7 +283,7 @@
       "id": "b-03",
       "series": "bass",
       "name": "长河 · 独奏级低音提琴",
-      "image": "assets/img/bass.svg",
+      "images": ["assets/img/bass.svg"],
       "tags": [
         "signature"
       ],
