@@ -655,8 +655,11 @@
   updateFavBadge();
   renderSkeleton();
 
-  // Local admin-edited dataset wins when present (edited in this browser)
-  var localData = store.get("shixian.data.v1");
+  // Local admin-edited dataset is only honored on the LAN/local server,
+  // never on the deployed site (a stale localStorage from the deployed
+  // admin would otherwise shadow fresh deployed data for that visitor).
+  var isLocalHost = /^localhost$|^127\.|^192\.168\.|^10\.|^172\.(1[6-9]|2\d|3[01])\.|^0\.0\.0\.0$/.test(location.hostname);
+  var localData = isLocalHost ? store.get("shixian.data.v1") : null;
   if (localData) {
     try {
       var parsed = JSON.parse(localData);
