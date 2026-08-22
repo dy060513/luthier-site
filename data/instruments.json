@@ -1054,7 +1054,7 @@
       ],
       "price": "面议",
       "note": "实木独板手工精斫，背板手绘传统山水「松下高士图」，古松苍劲、人物传神，意境清逸悠远。琴体共鸣浑厚饱满，低音深沉通透，高音温暖舒展，达乐团级演奏品质。手绘孤品，是兼具专业演奏实力与东方文人美学的典藏级乐器。",
-      "image": "assets/uploads/img-Kc-01-main.jpg"
+      "image": "assets/uploads/img-Kc-01-1.jpg"
     },
     {
       "id": "Kv-01",
@@ -1065,7 +1065,9 @@
         "assets/uploads/img-Kv-01-2.jpg"
       ],
       "tags": [
-        "flagship"
+        "featured",
+        "flagship",
+        "signature"
       ],
       "params": [
         {
@@ -1087,13 +1089,13 @@
       ],
       "price": "面议",
       "note": "实木独板手工斫制，背板以传统工笔手绘「喜鹊登梅」图，设色雅致、纹样细腻，寓意吉庆临门。琴体共振优异，音色通透清亮，高低音均衡饱满，达专业演奏级标准。一物一绘孤品，兼具乐器演奏功能与国风绘画收藏价值。",
-      "image": "assets/uploads/img-Kv-01-main.jpg"
+      "image": "assets/uploads/img-Kv-01-1.jpg"
     },
     {
       "id": "Kcc-01",
       "series": "s-mt4igi06",
       "name": "清供・金丝楠木素面典藏琴盒",
-      "image": "assets/uploads/img-Kcc-01-main.jpg",
+      "image": "assets/uploads/img-Kcc-01-1.jpg",
       "tags": [],
       "params": [
         {
@@ -1116,7 +1118,9 @@
       "id": "Kv-02",
       "series": "violin",
       "name": "沧龙·墨海游龙",
-      "tags": [],
+      "tags": [
+        "signature"
+      ],
       "params": [
         {
           "k": "用材",
@@ -1148,7 +1152,9 @@
       "id": "Kv-03",
       "series": "violin",
       "name": "青鸾·碧落栖凤",
-      "tags": [],
+      "tags": [
+        "signature"
+      ],
       "params": [
         {
           "k": "用材",
