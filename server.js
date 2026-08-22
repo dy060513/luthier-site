@@ -43,6 +43,27 @@ http
       return;
     }
 
+    // Admin image upload: POST /api/upload (image bytes) → saved under assets/uploads/
+    if (req.method === "POST" && p === "/api/upload") {
+      const ext = /png/i.test(req.headers["content-type"] || "") ? "png" : (/webp/i.test(req.headers["content-type"] || "") ? "webp" : "jpg");
+      const chunks = [];
+      req.on("data", (c) => chunks.push(c));
+      req.on("end", () => {
+        const buf = Buffer.concat(chunks);
+        const dir = path.join(ROOT, "assets", "uploads");
+        fs.mkdir(dir, { recursive: true }, (err) => {
+          if (err) { res.writeHead(500, { "Content-Type": "application/json" }); res.end(JSON.stringify({ ok: false })); return; }
+          const name = "img-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 6) + "." + ext;
+          fs.writeFile(path.join(dir, name), buf, (err2) => {
+            if (err2) { res.writeHead(500, { "Content-Type": "application/json" }); res.end(JSON.stringify({ ok: false })); return; }
+            res.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+            res.end(JSON.stringify({ ok: true, path: "assets/uploads/" + name }));
+          });
+        });
+      });
+      return;
+    }
+
     if (p === "/") p = "/index.html";
     const file = path.join(ROOT, p);
     fs.readFile(file, (err, data) => {

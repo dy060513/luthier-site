@@ -26,8 +26,7 @@
   function srem(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
 
   /* ---------- image paste / pick → compressed data URL ---------- */
-  function imageToDataUrl(file, maxW, maxH, quality, cb) {
-    var reader = new FileReader();
+  function imageToDataUrl(file, maxW, maxH, quality, cb) {    var reader = new FileReader();
     reader.onload = function () {
       var im = new Image();
       im.onload = function () {
@@ -44,6 +43,23 @@
       im.src = reader.result;
     };
     reader.onerror = function () { toast("读取图片失败"); };
+    reader.readAsDataURL(file);
+  }
+
+  function compressImage(file, max, quality, cb) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var im = new Image();
+      im.onload = function () {
+        var sc = Math.min(1, max / im.width, max / im.height);
+        var w = Math.max(1, Math.round(im.width * sc)), h = Math.max(1, Math.round(im.height * sc));
+        var c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        c.getContext("2d").drawImage(im, 0, 0, w, h);
+        c.toBlob(function (blob) { cb(blob, { w: w, h: h }); }, "image/jpeg", quality);
+      };
+      im.src = reader.result;
+    };
     reader.readAsDataURL(file);
   }
 
@@ -283,9 +299,21 @@
           });
         }
         function processImageFile(file) {
-          imageToDataUrl(file, 1280, 1280, 0.8, function (dataUrl, info) {
-            addImageRow(dataUrl);
-            toast("已添加第 " + imgBox.children.length + " 张（" + info.w + "×" + info.h + "，" + info.kb + " KB）");
+          compressImage(file, 1600, 0.82, function (blob, info) {
+            fetch("api/upload", { method: "POST", headers: { "Content-Type": blob.type }, body: blob })
+              .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("http")); })
+              .then(function (j) {
+                if (j && j.ok && j.path) {
+                  addImageRow(j.path);
+                  toast("已上传第 " + imgBox.children.length + " 张（" + info.w + "×" + info.h + "，" + Math.round(blob.size / 1024) + "KB）");
+                } else throw new Error("bad");
+              })
+              .catch(function () {
+                imageToDataUrl(file, 1280, 1280, 0.8, function (dataUrl, i2) {
+                  addImageRow(dataUrl);
+                  toast("上传失败，已用内嵌图（体积大、仅本机暂存）——请改用局域网版上传");
+                });
+              });
           });
         }
       }
