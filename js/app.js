@@ -21,7 +21,7 @@
   var tagHtml = function (tid) {
     var t = tagOf(tid);
     if (!t) return "";
-    return '<span class="tag tag-' + esc(t.tone || "outline") + '">' + esc(t.label) + "</span>";
+    return '<span class="tag tag-' + esc(t.tone || "outline") + '">' + esc(ttagLabel(tid) || t.label) + "</span>";
   };
   var priceHtml = function (i) {
     var p = (i.price || "").toString();
@@ -67,6 +67,22 @@
     if (!d) return "";
     return sid ? ((d.seriesDesc && d.seriesDesc[sid]) || "") : (d[field] || "");
   }
+  /* translated instrument content (name/params/note) + tag labels + brand */
+  function tin(id, field) {
+    if (curLang === "zh" || !DATA || !DATA.i18nItems || !DATA.i18nItems[id]) return "";
+    var d = DATA.i18nItems[id][curLang];
+    return (d && d[field]) || "";
+  }
+  function tparams(id) {
+    if (curLang === "zh" || !DATA || !DATA.i18nItems || !DATA.i18nItems[id]) return null;
+    var d = DATA.i18nItems[id][curLang];
+    return (d && d.params && d.params.length) ? d.params : null;
+  }
+  function ttagLabel(tid) {
+    if (curLang === "zh" || !DATA || !DATA.i18nTags || !DATA.i18nTags[curLang]) return "";
+    return DATA.i18nTags[curLang][tid] || "";
+  }
+  function brandName() { return (curLang === "zh" || !DATA.site.brandNameEn) ? DATA.site.brandName : DATA.site.brandNameEn; }
 
   /* ---------- favorites persistence ---------- */
   function loadFavs() {
@@ -168,7 +184,7 @@
         '<div class="hero-ornament" aria-hidden="true"><img src="assets/img/violin.svg" alt=""></div>' +
         '<div class="hero-ornament second" aria-hidden="true"><img src="assets/img/cello.svg" alt=""></div>' +
         '<p class="eyebrow reveal">' + esc(s.brandNameEn) + "</p>" +
-        '<h1 class="reveal">' + esc(s.brandName) + "</h1>" +
+        '<h1 class="reveal">' + esc(brandName()) + "</h1>" +
         '<p class="hero-tagline reveal">' + esc(tc("tagline") || s.tagline) + "</p>" +
         '<p class="hero-en reveal">' + esc(s.brandNameEn) + " · EST. MMXXVI</p>" +
         '<div class="gold-rule reveal"><span class="diamond"></span></div>' +
@@ -187,15 +203,17 @@
     opts = opts || {};
     var sx = seriesOf(i.series);
     var imgs = imgsOf(i);
-    var specs = (i.params || []).slice(0, 2).map(function (p) { return p.k + "：" + p.v; }).join(" · ");
-    return '<article class="instrument-card reveal" data-item="' + esc(i.id) + '" role="button" tabindex="0" aria-label="查看 ' + esc(i.name) + '">' +
+    var ps = tparams(i.id) || (i.params || []).map(function (p) { return [p.k, p.v]; });
+    var name = tin(i.id, "name") || i.name;
+    var specs = ps.slice(0, 2).map(function (p) { return p[0] + "：" + p[1]; }).join(" · ");
+    return '<article class="instrument-card reveal" data-item="' + esc(i.id) + '" role="button" tabindex="0" aria-label="查看 ' + esc(name) + '">' +
       '<div class="card-media">' +
-        '<img src="' + esc(imgs[0]) + '" alt="' + esc(i.name) + '" loading="lazy" decoding="async" data-fallback="' + esc(imgs[1] || imgs[0]) + '">' +
+        '<img src="' + esc(imgs[0]) + '" alt="' + esc(name) + '" loading="lazy" decoding="async" data-fallback="' + esc(imgs[1] || imgs[0]) + '">' +
         '<button class="fav-btn' + (isFav(i.id) ? " on" : "") + '" data-fav="' + esc(i.id) + '" aria-label="收藏" aria-pressed="' + isFav(i.id) + '">' + favSvg + "</button>" +
         '<span class="zoom-hint">点击放大</span>' +
       "</div>" +
       '<div class="card-body">' +
-        '<h3 class="card-name">' + esc(i.name) + "</h3>" +
+        '<h3 class="card-name">' + esc(name) + "</h3>" +
         '<div class="chip-row">' + (i.tags || []).map(tagHtml).join("") + "</div>" +
         '<p class="card-specs">' + esc(specs) + "</p>" +
         '<div class="card-foot">' + priceHtml(i) + '<span class="card-more">详情</span></div>' +
@@ -245,9 +263,12 @@
     if (!i) { location.hash = "#/"; return; }
     var sx = seriesOf(i.series);
     var imgs = imgsOf(i);
-    document.title = i.name + " · " + DATA.site.brandName;
-    var params = (i.params || []).map(function (p) {
-      return '<div class="param-row"><dt>' + esc(p.k) + "</dt><dd>" + esc(p.v) + "</dd></div>";
+    var dname = tin(i.id, "name") || i.name;
+    var dnote = tin(i.id, "note") || i.note;
+    var dps = tparams(i.id) || (i.params || []).map(function (p) { return [p.k, p.v]; });
+    document.title = dname + " · " + brandName();
+    var params = dps.map(function (p) {
+      return '<div class="param-row"><dt>' + esc(p[0]) + "</dt><dd>" + esc(p[1]) + "</dd></div>";
     }).join("");
 
     $("view").innerHTML =
@@ -258,7 +279,7 @@
         '<div class="detail-media reveal">' +
           '<div class="carousel">' +
             '<div class="carousel-track">' + imgs.map(function (src, j) {
-              return '<img src="' + esc(src) + '" alt="' + esc(i.name) + " " + (j + 1) + '" loading="lazy" decoding="async" data-full="' + esc(src) + '">';
+              return '<img src="' + esc(src) + '" alt="' + esc(dname) + " " + (j + 1) + '" loading="lazy" decoding="async" data-full="' + esc(src) + '">';
             }).join("") + "</div>" +
             (imgs.length > 1
               ? '<button class="carousel-arrow prev" data-car-prev aria-label="prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>' +
@@ -270,11 +291,11 @@
           '<button class="fav-btn' + (isFav(i.id) ? " on" : "") + '" data-fav="' + esc(i.id) + '" aria-label="收藏" aria-pressed="' + isFav(i.id) + '">' + favSvg + "</button>" +
         "</div>" +
         '<div class="detail-title reveal">' +
-          '<h1>' + esc(i.name) + "</h1>" +
+          '<h1>' + esc(dname) + "</h1>" +
           '<p class="detail-series">' + esc(sx ? sx.en : "") + " · " + esc(sx ? sName(sx) : "") + "</p>" +
           '<div class="chip-row detail-tags">' + (i.tags || []).map(tagHtml).join("") + "</div>" +
           '<div class="detail-price">' + priceHtml(i) + "</div>" +
-          (i.note ? '<p class="detail-note">' + esc(i.note) + "</p>" : "") +
+          (i.note ? '<p class="detail-note">' + esc(dnote) + "</p>" : "") +
         "</div>" +
         '<div class="param-table reveal">' + params + "</div>" +
         '<div class="detail-actions reveal">' +
@@ -588,14 +609,14 @@
     // brand text placeholders updated from data when loaded
   }
   function applyData() {
-    $("brandName").textContent = DATA.site.brandName;
-    $("footerBrand").textContent = DATA.site.brandName;
+    $("brandName").textContent = brandName();
+    $("footerBrand").textContent = brandName();
     $("footerEn").textContent = DATA.site.brandNameEn;
     $("footerWechat").textContent = DATA.contact.wechat;
     $("footerPhone").textContent = DATA.contact.phone;
     $("footerPhone").href = "tel:" + DATA.contact.phone.replace(/[^0-9]/g, "");
     $("footerNote").textContent = DATA.contact.wechatNote + " · " + DATA.contact.phoneNote;
-    document.title = DATA.site.brandName + " · " + (curLang === "zh" ? "手工提琴" : "String Instruments");
+    document.title = brandName() + " · " + (curLang === "zh" ? "手工提琴" : "String Instruments");
     // language select + translated chrome
     var langSel = $("langSel");
     if (langSel) {
