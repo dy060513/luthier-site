@@ -672,7 +672,7 @@
     } catch (e) { /* corrupted local data -> fall through to file */ }
   }
 
-  fetch("data/instruments.json", { cache: "no-store" })
+  fetch("data/instruments.json?v=1788529633", { cache: "no-store" })
     .then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
