@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  /* ---------- 开屏视频动画 ---------- */
+  /* ---------- 开屏动画 ---------- */
   (function initSplash() {
     var splash = document.getElementById("splash");
     if (!splash) return;
@@ -16,7 +16,6 @@
       splash.remove();
       return;
     }
-    var video = document.getElementById("splashVideo");
     var skipBtn = document.getElementById("splashSkip");
     var closed = false;
     function close() {
@@ -26,17 +25,8 @@
       splash.classList.add("done");
       setTimeout(function () { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 900);
     }
-    if (video) {
-      video.addEventListener("error", close);
-      video.addEventListener("ended", close);
-      var p = video.play();
-      if (p && p.catch) p.catch(function () {});
-    }
     if (skipBtn) skipBtn.addEventListener("click", close);
-    splash.addEventListener("click", function (e) {
-      if (e.target !== skipBtn) close();
-    });
-    // 固定 4.5 秒后自动进入网站，不依赖视频事件
+    splash.addEventListener("click", close);
     setTimeout(close, 4500);
   })();
 
