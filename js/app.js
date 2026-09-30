@@ -27,7 +27,7 @@
     }
     if (skipBtn) skipBtn.addEventListener("click", close);
     splash.addEventListener("click", close);
-    setTimeout(close, 4500);
+    setTimeout(close, 6000);
   })();
 
   var DATA = null;
