@@ -26,7 +26,8 @@
       "seriesDesc": {
         "violin": "Handcrafted violins from 4/4 to 1/2. Spruce tops, maple backs, voiced one by one.",
         "cello": "Warm yet restrained. Wide body and long arch, breathing room for the low register.",
-        "bass": "The foundation of the orchestra. Large handcrafted double basses, from soloist to orchestral grade."
+        "bass": "The foundation of the orchestra. Large handcrafted double basses, from soloist to orchestral grade.",
+        "s-mt4igi06": "A thousand-mile journey starts with the case. Handcrafted wooden cases with humidity control, protecting your instrument on every trip."
       }
     },
     "ja": {
@@ -38,7 +39,8 @@
       "seriesDesc": {
         "violin": "4/4から1/2まで、ハンドメイドのバイオリン。スプルース表板・メイプル裏板、一本ずつ音を調整。",
         "cello": "深く落ち着いた音色。幅広いボディと長いアーチが低音域に余白を。",
-        "bass": "オーケストラの土台。ソリスト用からオーケストラ用まで受注制作。"
+        "bass": "オーケストラの土台。ソリスト用からオーケストラ用まで受注制作。",
+        "s-mt4igi06": "ケースと共に千の旅へ。木製ハードシェルケース、湿度管理で楽器を守る。"
       }
     },
     "ko": {
@@ -50,7 +52,8 @@
       "seriesDesc": {
         "violin": "4/4부터 1/2까지, 핸드메이드 바이올린. 스프루스 상판·메이플 하판, 한 대씩 음색 조율.",
         "cello": "깊고 절제된 음색. 넓은 몸통과 긴 아치가 저음역에 여백을.",
-        "bass": "오케스트라의 기초. 독주용부터 오케스트라용까지 주문 제작."
+        "bass": "오케스트라의 기초. 독주용부터 오케스트라용까지 주문 제작.",
+        "s-mt4igi06": "천 리 길도 케이스와 함께. 수제 원목 케이스가 악기를 지켜드립니다."
       }
     },
     "es": {
@@ -62,7 +65,8 @@
       "seriesDesc": {
         "violin": "Violines artesanales de 4/4 a 1/2. Tapa de abeto, fondo de arce, entonados uno a uno.",
         "cello": "Cálido y contenido. Cuerpo ancho y arco largo, aire para el registro grave.",
-        "bass": "La base de la orquesta. Contrabajos artesanales, de solista a orquesta."
+        "bass": "La base de la orquesta. Contrabajos artesanales, de solista a orquesta.",
+        "s-mt4igi06": "Mil kilómetros empiezan con el estuche. Estuches artesanales de madera con control de humedad."
       }
     },
     "fr": {
@@ -74,7 +78,8 @@
       "seriesDesc": {
         "violin": "Violons artisanaux du 4/4 au 1/2. Table en épicéa, fond en érable, harmonisés un à un.",
         "cello": "Chaleureux et retenu. Corps large et arche longue, respiration pour le grave.",
-        "bass": "La base de l'orchestre. Contrebasses artisanales, de soliste à orchestre."
+        "bass": "La base de l'orchestre. Contrebasses artisanales, de soliste à orchestre.",
+        "s-mt4igi06": "Mille lieues commencent avec l'étui. Étuis artisanaux en bois avec régulation d'humidité."
       }
     },
     "de": {
@@ -86,7 +91,8 @@
       "seriesDesc": {
         "violin": "Handgefertigte Violinen von 4/4 bis 1/2. Fichtendecke, Ahornboden, einzeln klanglich abgestimmt.",
         "cello": "Warm und zurückhaltend. Breiter Korpus und langer Bogen, Luft für den tiefen Bereich.",
-        "bass": "Das Fundament des Orchesters. Handgefertigte Kontrabässe, vom Solisten bis zur Orchesterqualität."
+        "bass": "Das Fundament des Orchesters. Handgefertigte Kontrabässe, vom Solisten bis zur Orchesterqualität.",
+        "s-mt4igi06": "Tausend Meilen beginnen mit dem Koffer. Handgefertigte Holzkoffer mit Feuchtigkeitskontrolle."
       }
     },
     "ru": {
@@ -98,7 +104,8 @@
       "seriesDesc": {
         "violin": "Ручные скрипки от 4/4 до 1/2. Еловая дека, кленовая спинка, настройка каждой.",
         "cello": "Тёплое и сдержанное звучание. Широкий корпус и длинная арка — воздух для низкого регистра.",
-        "bass": "Основа оркестра. Ручные контрабасы от солиста до оркестрового класса."
+        "bass": "Основа оркестра. Ручные контрабасы от солиста до оркестрового класса.",
+        "s-mt4igi06": "Тысяча вёрст начинается с футляра. Ручные деревянные футляры с контролем влажности."
       }
     }
   },
@@ -953,6 +960,70 @@
           ]
         ],
         "note": "주문제작 가능, 인도 약 18개월"
+      }
+    },
+    "Kc-01": {
+      "en": {
+        "name": "Pines by the Stream - Hand-painted Landscape Solo Cello",
+        "note": "Handcrafted solid-top cello with a hand-painted classical landscape on the back. Ancient pines and elegant figure in ink-wash style. Rich, full resonance with deep bass and warm treble, orchestral-grade. A one-of-a-kind collector piece blending performance quality with oriental literati aesthetics.",
+        "params": [
+          [
+            "Wood",
+            "Golden Phoebe zhennan"
+          ],
+          [
+            "Size",
+            "4/4"
+          ],
+          [
+            "Craft",
+            "Lacquer - Hand Thangka painting - 320 hrs"
+          ],
+          [
+            "Tone",
+            "Bright and clear, responsive, for solo and recording"
+          ]
+        ]
+      }
+    },
+    "Kv-01": {
+      "en": {
+        "name": "Magpie on Plum - Gongbi Hand-painted Solo Violin",
+        "note": "Handcrafted solid-top violin with a traditional Gongbi Magpie on Plum Blossom painting on the back. Elegant coloring, meticulous detail, a symbol of auspicious arrival. Excellent resonance, clear and balanced tone across the registers. A one-of-a-kind piece blending performance with Chinese painting collectibility.",
+        "params": [
+          [
+            "Wood",
+            "Golden Phoebe zhennan"
+          ],
+          [
+            "Size",
+            "4/4"
+          ],
+          [
+            "Craft",
+            "Lacquer - Hand Thangka painting - 180 hrs"
+          ],
+          [
+            "Tone",
+            "Balanced and warm, for chamber music and daily practice"
+          ]
+        ]
+      }
+    },
+    "Kcc-01": {
+      "en": {
+        "name": "Quin Gong - Golden Phoebe Plain Collector Case",
+        "note": "Crafted from aged solid golden Phoebe zhennan with natural golden grain. Lined with velvet and Song brocade, custom-molded for a precise fit, moisture-resistant. Brass hardware and leather handle. Both a professional instrument case and a scholar studio-grade woodwork piece.",
+        "params": [
+          [
+            "Case Material",
+            "Golden Phoebe zhennan"
+          ],
+          [
+            "Hardware",
+            "Brass"
+          ]
+        ]
       }
     }
   },

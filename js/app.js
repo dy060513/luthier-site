@@ -19,29 +19,32 @@
     var video = document.getElementById("splashVideo");
     var skipBtn = document.getElementById("splashSkip");
     var closed = false;
+    var playTimer = null;
     function close() {
       if (closed) return;
       closed = true;
       try { sessionStorage.setItem("kaiyue.splash.v1", "1"); } catch (e) {}
       splash.classList.add("done");
-      setTimeout(function () { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 1000);
+      setTimeout(function () { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 900);
     }
-    // 视频自然播完
     if (video) {
+      // 视频可播放后开始计时兜底
+      video.addEventListener("canplay", function () {
+        if (playTimer) clearTimeout(playTimer);
+        // 最长播放 8 秒后自动关闭
+        playTimer = setTimeout(close, 8000);
+      });
       video.addEventListener("ended", close);
       video.addEventListener("error", close);
-      // 某些浏览器不自动播放静音视频时兜底
       var p = video.play();
-      if (p && p.catch) p.catch(function () { /* 忽略，由超时兜底 */ });
+      if (p && p.catch) p.catch(function () {});
     }
-    // 跳过按钮
     if (skipBtn) skipBtn.addEventListener("click", close);
-    // 点击任意处也跳过（移动端友好）
     splash.addEventListener("click", function (e) {
       if (e.target !== skipBtn) close();
     });
-    // 最长 6 秒兜底，避免视频加载失败卡住
-    setTimeout(close, 6000);
+    // 网络慢时 12 秒后强制关闭
+    setTimeout(close, 12000);
   })();
 
   var DATA = null;
@@ -65,7 +68,8 @@
   var priceHtml = function (i) {
     var p = (i.price || "").toString();
     var negotiable = /面议|议/i.test(p);
-    return '<span class="price' + (negotiable ? " negotiable" : "") + '">' + esc(p) + "</span>";
+    var display = negotiable ? t("negotiable") : esc(p);
+    return '<span class="price' + (negotiable ? " negotiable" : "") + '">' + display + "</span>";
   };
   var favSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 20s-7.5-4.6-9.5-9C1 7.5 3.4 5 6.2 5c1.9 0 3.6 1 4.6 2.6h2.4C14.2 6 15.9 5 17.8 5 20.6 5 23 7.5 21.5 11c-2 4.4-9.5 9-9.5 9z"/></svg>';
 
@@ -79,14 +83,14 @@
 
   /* ---------- i18n (UI chrome only; instrument content stays source-language) ---------- */
   var LANGS = {
-    zh: { home: "首页", series: "琴系列", fav: "我的收藏", search: "搜索琴款", back: "返回", detail: "详情", zoom: "点击放大", count: "共 {n} 款", found: "找到 {n} 款", all: "全部", empty: "没有找到琴款", emptyTip: "换个关键词或筛选条件试试。", favEmpty: "尚未收藏任何琴款", favEmptyTip: "浏览琴款时点击图片右上角的心形即可收藏。", browseAll: "浏览全部琴款", contact: "联系方式", wechat: "微信", phone: "电话", share: "分享", savePhone: "保存到手机", qr: "展销会二维码", expoTrial: "现场试奏", violin: "小提琴", cello: "大提琴", bass: "低音提琴", addWechat: "加微信咨询", call: "拨打电话", lang: "语言" },
-    en: { home: "Home", series: "Collection", fav: "Favorites", search: "Search", back: "Back", detail: "Details", zoom: "Tap to zoom", count: "{n} items", found: "{n} found", all: "All", empty: "No instruments found", emptyTip: "Try another keyword or filter.", favEmpty: "No favorites yet", favEmptyTip: "Tap the heart on an image to save it.", browseAll: "Browse all", contact: "Contact", wechat: "WeChat", phone: "Phone", share: "Share", savePhone: "Save to phone", qr: "Expo QR", expoTrial: "Try on site", violin: "Violin", cello: "Cello", bass: "Double Bass", addWechat: "Chat on WeChat", call: "Call", lang: "Language" },
-    ja: { home: "ホーム", series: "コレクション", fav: "お気に入り", search: "検索", back: "戻る", detail: "詳細", zoom: "タップで拡大", count: "{n} 点", found: "{n} 件", all: "すべて", empty: "楽器が見つかりません", emptyTip: "キーワードや条件を変えてみてください。", favEmpty: "お気に入りはまだありません", favEmptyTip: "画像のハートをタップして保存します。", browseAll: "すべて見る", contact: "連絡先", wechat: "WeChat", phone: "電話", share: "共有", savePhone: "ホーム画面に保存", qr: "展示会QR", expoTrial: "試奏可", violin: "バイオリン", cello: "チェロ", bass: "コントラバス", addWechat: "WeChatで相談", call: "電話", lang: "言語" },
-    ko: { home: "홈", series: "컬렉션", fav: "즐겨찾기", search: "검색", back: "뒤로", detail: "상세", zoom: "탭하여 확대", count: "{n}개", found: "{n}건", all: "전체", empty: "악기를 찾을 수 없습니다", emptyTip: "다른 검색어나 조건을 사용해 보세요.", favEmpty: "즐겨찾기가 없습니다", favEmptyTip: "이미지의 하트를 눌러 저장하세요.", browseAll: "전체 보기", contact: "연락처", wechat: "위챗", phone: "전화", share: "공유", savePhone: "홈 화면에 저장", qr: "전시회 QR", expoTrial: "시주 가능", violin: "바이올린", cello: "첼로", bass: "콘트라베이스", addWechat: "위챗 상담", call: "전화", lang: "언어" },
-    es: { home: "Inicio", series: "Colección", fav: "Favoritos", search: "Buscar", back: "Atrás", detail: "Detalles", zoom: "Toca para ampliar", count: "{n} artículos", found: "{n} encontrados", all: "Todos", empty: "No se encontraron instrumentos", emptyTip: "Prueba otra palabra o filtro.", favEmpty: "Sin favoritos aún", favEmptyTip: "Toca el corazón en la imagen para guardar.", browseAll: "Ver todos", contact: "Contacto", wechat: "WeChat", phone: "Teléfono", share: "Compartir", savePhone: "Guardar en el móvil", qr: "QR de la feria", expoTrial: "Prueba en vivo", violin: "Violín", cello: "Violonchelo", bass: "Contrabajo", addWechat: "Chatear en WeChat", call: "Llamar", lang: "Idioma" },
-    fr: { home: "Accueil", series: "Collection", fav: "Favoris", search: "Rechercher", back: "Retour", detail: "Détails", zoom: "Toucher pour zoomer", count: "{n} articles", found: "{n} trouvés", all: "Tous", empty: "Aucun instrument trouvé", emptyTip: "Essayez un autre mot-clé ou filtre.", favEmpty: "Aucun favori", favEmptyTip: "Touchez le cœur sur l'image pour enregistrer.", browseAll: "Tout voir", contact: "Contact", wechat: "WeChat", phone: "Téléphone", share: "Partager", savePhone: "Enregistrer sur le téléphone", qr: "QR du salon", expoTrial: "Essai sur place", violin: "Violon", cello: "Violoncelle", bass: "Contrebasse", addWechat: "Discuter sur WeChat", call: "Appeler", lang: "Langue" },
-    de: { home: "Start", series: "Sammlung", fav: "Favoriten", search: "Suchen", back: "Zurück", detail: "Details", zoom: "Zum Vergrößern tippen", count: "{n} Artikel", found: "{n} gefunden", all: "Alle", empty: "Keine Instrumente gefunden", emptyTip: "Anderes Stichwort oder Filter versuchen.", favEmpty: "Noch keine Favoriten", favEmptyTip: "Herz auf dem Bild antippen zum Speichern.", browseAll: "Alle ansehen", contact: "Kontakt", wechat: "WeChat", phone: "Telefon", share: "Teilen", savePhone: "Aufs Handy speichern", qr: "Messe QR", expoTrial: "Vor Ort testen", violin: "Violine", cello: "Cello", bass: "Kontrabass", addWechat: "WeChat-Chat", call: "Anrufen", lang: "Sprache" },
-    ru: { home: "Главная", series: "Коллекция", fav: "Избранное", search: "Поиск", back: "Назад", detail: "Подробнее", zoom: "Нажмите, чтобы увеличить", count: "{n} шт.", found: "Найдено: {n}", all: "Все", empty: "Инструменты не найдены", emptyTip: "Попробуйте другое слово или фильтр.", favEmpty: "Избранного пока нет", favEmptyTip: "Нажмите сердце на изображении, чтобы сохранить.", browseAll: "Смотреть все", contact: "Контакты", wechat: "WeChat", phone: "Телефон", share: "Поделиться", savePhone: "Сохранить на телефон", qr: "QR ярмарки", expoTrial: "Проба на месте", violin: "Скрипка", cello: "Виолончель", bass: "Контрабас", addWechat: "Написать в WeChat", call: "Позвонить", lang: "Язык" }
+    zh: { home: "首页", series: "琴系列", fav: "我的收藏", search: "搜索琴款", back: "返回", detail: "详情", zoom: "点击放大", count: "共 {n} 款", found: "找到 {n} 款", all: "全部", empty: "没有找到琴款", emptyTip: "换个关键词或筛选条件试试。", favEmpty: "尚未收藏任何琴款", favEmptyTip: "浏览琴款时点击图片右上角的心形即可收藏。", browseAll: "浏览全部琴款", contact: "联系方式", wechat: "微信", phone: "电话", share: "分享", savePhone: "保存到手机", qr: "展销会二维码", expoTrial: "现场试奏", violin: "小提琴", cello: "大提琴", bass: "低音提琴", caseName: "琴盒", addWechat: "加微信咨询", call: "拨打电话", lang: "语言", favAdded: "已加入收藏", favRemoved: "已取消收藏", wechatCopied: "微信号已复制", linkCopied: "链接已复制，去粘贴分享吧", searchPlaceholder: "输入琴名、用材、系列…", negotiable: "面议", saveTitle: "保存到手机", saveSub: "把展销会官网存到桌面，随时扫码查看。", save1i: "打开 Safari 浏览器访问本页面", save2i: "点底部工具栏的 分享 按钮", save3i: "选择 添加到主屏幕，命名后点添加", save1a: "打开 Chrome / 系统浏览器访问本页面", save2a: "点右上角菜单 ⋮（或底部菜单）", save3a: "选择 添加到主屏幕 / 安装应用", reload: "重新加载", loadFail: "数据加载失败", loadFailTip: "请确认 data/instruments.json 存在且格式正确。", adminLoading: "加载中…", footerCopy: "手工制作 · 支持定制 · 展会现场可试奏", adminLink: "管理内容" },
+    en: { home: "Home", series: "Collection", fav: "Favorites", search: "Search", back: "Back", detail: "Details", zoom: "Tap to zoom", count: "{n} items", found: "{n} found", all: "All", empty: "No instruments found", emptyTip: "Try another keyword or filter.", favEmpty: "No favorites yet", favEmptyTip: "Tap the heart on an image to save it.", browseAll: "Browse all", contact: "Contact", wechat: "WeChat", phone: "Phone", share: "Share", savePhone: "Save to phone", qr: "Expo QR", expoTrial: "Try on site", violin: "Violin", cello: "Cello", bass: "Double Bass", caseName: "Collector's Case", addWechat: "Chat on WeChat", call: "Call", lang: "Language", favAdded: "Added to favorites", favRemoved: "Removed from favorites", wechatCopied: "WeChat ID copied", linkCopied: "Link copied — paste to share", searchPlaceholder: "Search by name, wood, series…", negotiable: "Negotiable", saveTitle: "Save to phone", saveSub: "Save this site to your home screen for quick access.", save1i: "Open this page in Safari", save2i: "Tap the Share button in the toolbar", save3i: "Choose Add to Home Screen, name it, then tap Add", save1a: "Open this page in Chrome / your browser", save2a: "Tap the menu ⋮ (top-right or bottom)", save3a: "Choose Add to Home screen / Install app", reload: "Reload", loadFail: "Failed to load data", loadFailTip: "Check that data/instruments.json exists and is valid.", adminLoading: "Loading…", footerCopy: "Handcrafted · Custom orders welcome · Try on site", adminLink: "Admin" },
+    ja: { home: "ホーム", series: "コレクション", fav: "お気に入り", search: "検索", back: "戻る", detail: "詳細", zoom: "タップで拡大", count: "{n} 点", found: "{n} 件", all: "すべて", empty: "楽器が見つかりません", emptyTip: "キーワードや条件を変えてみてください。", favEmpty: "お気に入りはまだありません", favEmptyTip: "画像のハートをタップして保存します。", browseAll: "すべて見る", contact: "連絡先", wechat: "WeChat", phone: "電話", share: "共有", savePhone: "ホーム画面に保存", qr: "展示会QR", expoTrial: "試奏可", violin: "バイオリン", cello: "チェロ", bass: "コントラバス", caseName: "弓・ケース", addWechat: "WeChatで相談", call: "電話", lang: "言語", favAdded: "お気に入りに追加しました", favRemoved: "お気に入りから削除しました", wechatCopied: "WeChat IDをコピーしました", linkCopied: "リンクをコピーしました", searchPlaceholder: "楽器名、素材、シリーズで検索…", negotiable: "応相談", saveTitle: "ホーム画面に保存", saveSub: "このサイトをホーム画面に追加してすぐアクセス。", save1i: "Safariでこのページを開く", save2i: "ツールバーの共有ボタンをタップ", save3i: "ホーム画面に追加を選択し、名前を付けて追加", save1a: "Chromeなどのブラウザで開く", save2a: "メニュー ⋮ をタップ", save3a: "ホーム画面に追加 / アプリをインストール", reload: "再読み込み", loadFail: "データの読み込みに失敗", loadFailTip: "data/instruments.jsonを確認してください。", adminLoading: "読み込み中…", footerCopy: "ハンドクラフト · カスタム対応 · 試奏可", adminLink: "管理" },
+    ko: { home: "홈", series: "컬렉션", fav: "즐겨찾기", search: "검색", back: "뒤로", detail: "상세", zoom: "탭하여 확대", count: "{n}개", found: "{n}건", all: "전체", empty: "악기를 찾을 수 없습니다", emptyTip: "다른 검색어나 조건을 사용해 보세요.", favEmpty: "즐겨찾기가 없습니다", favEmptyTip: "이미지의 하트를 눌러 저장하세요.", browseAll: "전체 보기", contact: "연락처", wechat: "위챗", phone: "전화", share: "공유", savePhone: "홈 화면에 저장", qr: "전시회 QR", expoTrial: "시주 가능", violin: "바이올린", cello: "첼로", bass: "콘트라베이스", caseName: "악기 케이스", addWechat: "위챗 상담", call: "전화", lang: "언어", favAdded: "즐겨찾기에 추가됨", favRemoved: "즐겨찾기에서 삭제됨", wechatCopied: "위챗 ID가 복사됨", linkCopied: "링크가 복사됨", searchPlaceholder: "이름, 재질, 시리즈로 검색…", negotiable: "상담 후 결정", saveTitle: "홈 화면에 저장", saveSub: "이 사이트를 홈 화면에 추가하세요.", save1i: "Safari에서 이 페이지 열기", save2i: "하단 도구 모음에서 공유 버튼 탭", save3i: "홈 화면에 추가 선택 후 추가", save1a: "Chrome에서 이 페이지 열기", save2a: "메뉴 ⋮ 탭", save3a: "홈 화면에 추가 / 앱 설치", reload: "새로고침", loadFail: "데이터 로드 실패", loadFailTip: "data/instruments.json 파일을 확인하세요.", adminLoading: "로드 중…", footerCopy: "수제 · 주문 제작 가능 · 현장 시연", adminLink: "관리" },
+    es: { home: "Inicio", series: "Colección", fav: "Favoritos", search: "Buscar", back: "Atrás", detail: "Detalles", zoom: "Toca para ampliar", count: "{n} artículos", found: "{n} encontrados", all: "Todos", empty: "No se encontraron instrumentos", emptyTip: "Prueba otra palabra o filtro.", favEmpty: "Sin favoritos aún", favEmptyTip: "Toca el corazón en la imagen para guardar.", browseAll: "Ver todos", contact: "Contacto", wechat: "WeChat", phone: "Teléfono", share: "Compartir", savePhone: "Guardar en el móvil", qr: "QR de la feria", expoTrial: "Prueba en vivo", violin: "Violín", cello: "Violonchelo", bass: "Contrabajo", caseName: "Estuche", addWechat: "Chatear en WeChat", call: "Llamar", lang: "Idioma", favAdded: "Añadido a favoritos", favRemoved: "Eliminado de favoritos", wechatCopied: "ID de WeChat copiado", linkCopied: "Enlace copiado", searchPlaceholder: "Buscar por nombre, madera, serie…", negotiable: "A consultar", saveTitle: "Guardar en el móvil", saveSub: "Guarda este sitio en tu pantalla de inicio.", save1i: "Abre esta página en Safari", save2i: "Toca el botón Compartir", save3i: "Elige Añadir a pantalla de inicio", save1a: "Abre esta página en Chrome", save2a: "Toca el menú ⋮", save3a: "Elige Añadir a pantalla de inicio / Instalar app", reload: "Recargar", loadFail: "Error al cargar datos", loadFailTip: "Verifica data/instruments.json.", adminLoading: "Cargando…", footerCopy: "Hecho a mano · Encargos personalizados · Prueba en vivo", adminLink: "Admin" },
+    fr: { home: "Accueil", series: "Collection", fav: "Favoris", search: "Rechercher", back: "Retour", detail: "Détails", zoom: "Toucher pour zoomer", count: "{n} articles", found: "{n} trouvés", all: "Tous", empty: "Aucun instrument trouvé", emptyTip: "Essayez un autre mot-clé ou filtre.", favEmpty: "Aucun favori", favEmptyTip: "Touchez le cœur sur l'image pour enregistrer.", browseAll: "Tout voir", contact: "Contact", wechat: "WeChat", phone: "Téléphone", share: "Partager", savePhone: "Enregistrer sur le téléphone", qr: "QR du salon", expoTrial: "Essai sur place", violin: "Violon", cello: "Violoncelle", bass: "Contrebasse", caseName: "Étui", addWechat: "Discuter sur WeChat", call: "Appeler", lang: "Langue", favAdded: "Ajouté aux favoris", favRemoved: "Retiré des favoris", wechatCopied: "ID WeChat copié", linkCopied: "Lien copié", searchPlaceholder: "Rechercher par nom, bois, série…", negotiable: "À consulter", saveTitle: "Enregistrer sur le téléphone", saveSub: "Enregistrez ce site sur votre écran d'accueil.", save1i: "Ouvrez cette page dans Safari", save2i: "Touchez le bouton Partager", save3i: "Choisissez Ajouter à l'écran d'accueil", save1a: "Ouvrez cette page dans Chrome", save2a: "Touchez le menu ⋮", save3a: "Choisissez Ajouter à l'écran d'accueil / Installer l'app", reload: "Recharger", loadFail: "Échec du chargement", loadFailTip: "Vérifiez data/instruments.json.", adminLoading: "Chargement…", footerCopy: "Fabrication artisanale · Sur commande · Essai sur place", adminLink: "Admin" },
+    de: { home: "Start", series: "Sammlung", fav: "Favoriten", search: "Suchen", back: "Zurück", detail: "Details", zoom: "Zum Vergrößern tippen", count: "{n} Artikel", found: "{n} gefunden", all: "Alle", empty: "Keine Instrumente gefunden", emptyTip: "Anderes Stichwort oder Filter versuchen.", favEmpty: "Noch keine Favoriten", favEmptyTip: "Herz auf dem Bild antippen zum Speichern.", browseAll: "Alle ansehen", contact: "Kontakt", wechat: "WeChat", phone: "Telefon", share: "Teilen", savePhone: "Aufs Handy speichern", qr: "Messe QR", expoTrial: "Vor Ort testen", violin: "Violine", cello: "Cello", bass: "Kontrabass", caseName: "Koffer", addWechat: "WeChat-Chat", call: "Anrufen", lang: "Sprache", favAdded: "Zu Favoriten hinzugefügt", favRemoved: "Aus Favoriten entfernt", wechatCopied: "WeChat-ID kopiert", linkCopied: "Link kopiert", searchPlaceholder: "Nach Name, Holz, Serie suchen…", negotiable: "Verhandlungsbasis", saveTitle: "Aufs Handy speichern", saveSub: "Speichern Sie diese Seite auf dem Startbildschirm.", save1i: "Öffnen Sie diese Seite in Safari", save2i: "Tippen Sie auf Teilen", save3i: "Zum Startbildschirm hinzufügen wählen", save1a: "Öffnen Sie diese Seite in Chrome", save2a: "Tippen Sie auf das Menü ⋮", save3a: "Zum Startbildschirm hinzufügen / App installieren wählen", reload: "Neu laden", loadFail: "Daten konnten nicht geladen werden", loadFailTip: "Prüfen Sie data/instruments.json.", adminLoading: "Laden…", footerCopy: "Handgefertigt · Sonderanfertigungen · Vor Ort testen", adminLink: "Admin" },
+    ru: { home: "Главная", series: "Коллекция", fav: "Избранное", search: "Поиск", back: "Назад", detail: "Подробнее", zoom: "Нажмите, чтобы увеличить", count: "{n} шт.", found: "Найдено: {n}", all: "Все", empty: "Инструменты не найдены", emptyTip: "Попробуйте другое слово или фильтр.", favEmpty: "Избранного пока нет", favEmptyTip: "Нажмите сердце на изображении, чтобы сохранить.", browseAll: "Смотреть все", contact: "Контакты", wechat: "WeChat", phone: "Телефон", share: "Поделиться", savePhone: "Сохранить на телефон", qr: "QR ярмарки", expoTrial: "Проба на месте", violin: "Скрипка", cello: "Виолончель", bass: "Контрабас", caseName: "Футляр", addWechat: "Написать в WeChat", call: "Позвонить", lang: "Язык", favAdded: "Добавлено в избранное", favRemoved: "Удалено из избранного", wechatCopied: "ID WeChat скопирован", linkCopied: "Ссылка скопирована", searchPlaceholder: "Поиск по названию, дереву, серии…", negotiable: "Договорная", saveTitle: "Сохранить на телефон", saveSub: "Сохраните этот сайт на домашнем экране.", save1i: "Откройте страницу в Safari", save2i: "Нажмите Поделиться", save3i: "Выберите На экран «Домой»", save1a: "Откройте страницу в Chrome", save2a: "Нажмите меню ⋮", save3a: "Выберите Добавить на главный экран / Установить приложение", reload: "Обновить", loadFail: "Ошибка загрузки данных", loadFailTip: "Проверьте data/instruments.json.", adminLoading: "Загрузка…", footerCopy: "Ручная работа · Индивидуальные заказы · Прослушивание на месте", adminLink: "Админ" }
   };
   var curLang = (function () { try { return localStorage.getItem("kaiyue.lang") || "zh"; } catch (e) { return "zh"; } })();
   var LANG_LABELS = { zh: "中文", en: "English", ja: "日本語", ko: "한국어", es: "Español", fr: "Français", de: "Deutsch", ru: "Русский" };
@@ -97,7 +101,14 @@
     return s;
   }
   function setLang(l) { curLang = l; try { localStorage.setItem("kaiyue.lang", l); } catch (e) {} if (DATA) applyData(); route(); }
-  function sName(sx) { return curLang === "zh" ? sx.name : (t(sx.id) === sx.id ? sx.name : t(sx.id)); }
+  function sName(sx) {
+    if (curLang === "zh") return sx.name;
+    // Map known series IDs to i18n keys; case series uses caseName
+    var keyMap = { "s-mt4igi06": "caseName" };
+    var key = keyMap[sx.id] || sx.id;
+    var v = t(key);
+    return v === key ? sx.name : v;
+  }
   function imgsOf(i) { return (i.images && i.images.length) ? i.images : (i.image ? [i.image] : ["assets/img/violin.svg"]); }
   /* translated content from data.i18n (falls back to original Chinese) */
   function tc(field, sid) {
@@ -131,8 +142,8 @@
   function isFav(id) { return favs.indexOf(id) !== -1; }
   function toggleFav(id) {
     var idx = favs.indexOf(id);
-    if (idx === -1) { favs.push(id); toast("已加入收藏"); }
-    else { favs.splice(idx, 1); toast("已取消收藏"); }
+    if (idx === -1) { favs.push(id); toast(t("favAdded")); }
+    else { favs.splice(idx, 1); toast(t("favRemoved")); }
     saveFavs();
     updateFavBadge();
     // re-render fav buttons on current view without losing scroll
@@ -202,8 +213,8 @@
   }
   function renderError() {
     $("view").innerHTML =
-      '<section><div class="empty"><h3>数据加载失败</h3><p>请确认 data/instruments.json 存在且格式正确。</p>' +
-      '<button class="btn btn-solid" onclick="location.reload()">重新加载</button></div></section>';
+      '<section><div class="empty"><h3>' + esc(t("loadFail")) + '</h3><p>' + esc(t("loadFailTip")) + '</p>' +
+      '<button class="btn btn-solid" onclick="location.reload()">' + esc(t("reload")) + '</button></div></section>';
   }
 
   /* ---------- home ---------- */
@@ -249,13 +260,13 @@
       '<div class="card-media">' +
         '<img src="' + esc(imgs[0]) + '" alt="' + esc(name) + '" loading="lazy" decoding="async" data-fallback="' + esc(imgs[1] || imgs[0]) + '">' +
         '<button class="fav-btn' + (isFav(i.id) ? " on" : "") + '" data-fav="' + esc(i.id) + '" aria-label="收藏" aria-pressed="' + isFav(i.id) + '">' + favSvg + "</button>" +
-        '<span class="zoom-hint">点击放大</span>' +
+        '<span class="zoom-hint">' + esc(t("zoom")) + "</span>" +
       "</div>" +
       '<div class="card-body">' +
         '<h3 class="card-name">' + esc(name) + "</h3>" +
         '<div class="chip-row">' + (i.tags || []).map(tagHtml).join("") + "</div>" +
         '<p class="card-specs">' + esc(specs) + "</p>" +
-        '<div class="card-foot">' + priceHtml(i) + '<span class="card-more">详情</span></div>' +
+        '<div class="card-foot">' + priceHtml(i) + '<span class="card-more">' + esc(t("detail")) + "</span></div>" +
       "</div></article>";
   }
 
@@ -278,9 +289,10 @@
 
     document.title = sx.name + " · " + DATA.site.brandName;
     var chips = '<button class="filter-chip' + (activeTag === "all" ? " active" : "") + '" data-filter="all">' + t("all") + "</button>" +
-      tagIds.map(function (t) {
-        var tag = tagOf(t);
-        return '<button class="filter-chip' + (activeTag === t ? " active" : "") + '" data-filter="' + esc(t) + '">' + esc(tag ? tag.label : t) + "</button>";
+      tagIds.map(function (tid) {
+        var tag = tagOf(tid);
+        var label = ttagLabel(tid) || (tag ? tag.label : tid);
+        return '<button class="filter-chip' + (activeTag === tid ? " active" : "") + '" data-filter="' + esc(tid) + '">' + esc(label) + "</button>";
       }).join("");
 
     $("view").innerHTML =
@@ -347,7 +359,7 @@
       "</section>";
 
     $("dContactWechat").addEventListener("click", function () {
-      copyText(DATA.contact.wechat, "微信号已复制：" + DATA.contact.wechat);
+      copyText(DATA.contact.wechat, t("wechatCopied") + "：" + DATA.contact.wechat);
     });
     $("dShare").addEventListener("click", function () { sharePage(i.name); });
     initCarousel(i.name);
@@ -378,11 +390,12 @@
     var tFilter = store.sget("search-tag") || "all";
     var seriesChips = '<button class="filter-chip' + (sFilter === "all" ? " active" : "") + '" data-sf="all">' + t("all") + "</button>" +
       DATA.series.map(function (s) {
-        return '<button class="filter-chip' + (sFilter === s.id ? " active" : "") + '" data-sf="' + esc(s.id) + '">' + esc(s.name) + "</button>";
+        return '<button class="filter-chip' + (sFilter === s.id ? " active" : "") + '" data-sf="' + esc(s.id) + '">' + esc(sName(s)) + "</button>";
       }).join("");
     var tagChips = '<button class="filter-chip' + (tFilter === "all" ? " active" : "") + '" data-tf="all">' + t("all") + "</button>" +
-      DATA.tags.map(function (t) {
-        return '<button class="filter-chip' + (tFilter === t.id ? " active" : "") + '" data-tf="' + esc(t.id) + '">' + esc(t.label) + "</button>";
+      DATA.tags.map(function (tg) {
+        var lbl = ttagLabel(tg.id) || tg.label;
+        return '<button class="filter-chip' + (tFilter === tg.id ? " active" : "") + '" data-tf="' + esc(tg.id) + '">' + esc(lbl) + "</button>";
       }).join("");
 
     var results = filterItems(q, sFilter, tFilter);
@@ -391,7 +404,7 @@
         '<span class="eyebrow">Search</span><h1>' + t("search") + "</h1>" +
         '<div class="search-box" style="margin-top:20px">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>' +
-          '<input id="searchInput" type="search" placeholder="输入琴名、用材、系列…" value="' + esc(q) + '">' +
+          '<input id="searchInput" type="search" placeholder="' + esc(t("searchPlaceholder")) + '" value="' + esc(q) + '">' +
         "</div>" +
         '<div class="chip-row" style="margin-top:16px">' + seriesChips + "</div>" +
         '<div class="chip-row" style="margin-top:10px">' + tagChips + "</div>" +
@@ -530,7 +543,7 @@
     if (navigator.share) {
       navigator.share(data).catch(function () {});
     } else {
-      copyText(url, "链接已复制，去粘贴分享吧");
+      copyText(url, t("linkCopied"));
     }
   }
   function copyText(text, msg) {
@@ -566,13 +579,13 @@
   function saveToPhoneModal() {
     var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
     var steps = isIOS
-      ? '<div class="save-step"><span class="step-num">1</span><p>打开 Safari 浏览器访问本页面</p></div>' +
-        '<div class="save-step"><span class="step-num">2</span><p>点底部工具栏的 <b>分享</b> 按钮</p></div>' +
-        '<div class="save-step"><span class="step-num">3</span><p>选择 <b>添加到主屏幕</b>，命名后点添加</p></div>'
-      : '<div class="save-step"><span class="step-num">1</span><p>打开 Chrome / 系统浏览器访问本页面</p></div>' +
-        '<div class="save-step"><span class="step-num">2</span><p>点右上角菜单 <b>⋮</b>（或底部菜单）</p></div>' +
-        '<div class="save-step"><span class="step-num">3</span><p>选择 <b>添加到主屏幕 / 安装应用</b></p></div>';
-    openModal("<h3>保存到手机</h3><p class='sub'>把展销会官网存到桌面，随时扫码查看。</p>" + steps);
+      ? '<div class="save-step"><span class="step-num">1</span><p>' + esc(t("save1i")) + '</p></div>' +
+        '<div class="save-step"><span class="step-num">2</span><p>' + esc(t("save2i")) + '</p></div>' +
+        '<div class="save-step"><span class="step-num">3</span><p>' + esc(t("save3i")) + '</p></div>'
+      : '<div class="save-step"><span class="step-num">1</span><p>' + esc(t("save1a")) + '</p></div>' +
+        '<div class="save-step"><span class="step-num">2</span><p>' + esc(t("save2a")) + '</p></div>' +
+        '<div class="save-step"><span class="step-num">3</span><p>' + esc(t("save3a")) + '</p></div>';
+    openModal("<h3>" + esc(t("saveTitle")) + "</h3><p class='sub'>" + esc(t("saveSub")) + "</p>" + steps);
   }
 
   /* ---------- global events ---------- */
@@ -668,12 +681,26 @@
     var rh = $("railHome"); if (rh) rh.textContent = t("home");
     var rf = $("railFav"); if (rf) rf.textContent = t("fav");
     var fl = $("footerContactLabel"); if (fl) fl.textContent = t("contact");
-    var lbls = document.querySelectorAll(".footer-actions [data-lbl]");
+    // Update all data-lbl elements globally (rail chips, footer labels, buttons)
+    var lbls = document.querySelectorAll("[data-lbl]");
     Array.prototype.forEach.call(lbls, function (el) {
       el.textContent = t(el.getAttribute("data-lbl"));
     });
+    // Footer note: translate the Chinese fragments
+    var noteEl = $("footerNote");
+    if (noteEl && DATA.contact) {
+      var wn = DATA.contact.wechatNote || "";
+      var pn = DATA.contact.phoneNote || "";
+      if (curLang === "zh") {
+        noteEl.textContent = wn + " · " + pn;
+      } else {
+        var wnEn = wn === "提琴" ? "Luthier" : wn;
+        var pnEn = pn.replace("工作日", "Mon–Fri");
+        noteEl.textContent = wnEn + " · " + pnEn;
+      }
+    }
     var tb = document.querySelector(".top-admin");
-    if (tb) tb.textContent = t("admin") !== "admin" ? t("admin") : "管理";
+    if (tb) tb.textContent = curLang === "zh" ? "管理" : "Admin";
   }
 
   /* ---------- admin bridge ---------- */
@@ -711,7 +738,7 @@
     } catch (e) { /* corrupted local data -> fall through to file */ }
   }
 
-  fetch("data/instruments.json?v=20260930", { cache: "no-store" })
+  fetch("data/instruments.json?v=20260930b", { cache: "no-store" })
     .then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();

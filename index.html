@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20260930">
+<link rel="stylesheet" href="css/style.css?v=20260930b">
 </head>
 <body>
 
@@ -46,9 +46,10 @@
 
   <nav class="series-rail" id="seriesRail" aria-label="系列切换">
     <button class="rail-chip" data-route="/" id="railHome">首页</button>
-    <button class="rail-chip" data-series="violin">小提琴</button>
-    <button class="rail-chip" data-series="cello">大提琴</button>
-    <button class="rail-chip" data-series="bass">低音提琴</button>
+    <button class="rail-chip" data-series="violin" data-lbl="violin">小提琴</button>
+    <button class="rail-chip" data-series="cello" data-lbl="cello">大提琴</button>
+    <button class="rail-chip" data-series="bass" data-lbl="bass">低音提琴</button>
+    <button class="rail-chip" data-series="s-mt4igi06" data-lbl="caseName">琴盒</button>
     <button class="rail-chip" data-route="/favorites" id="railFav">收藏</button>
   </nav>
 
@@ -61,8 +62,8 @@
     </div>
     <div class="footer-contact">
       <p class="footer-label" id="footerContactLabel">联系方式</p>
-      <p class="contact-line">微信 <span id="footerWechat">shixian_luthier</span></p>
-      <p class="contact-line">电话 <a href="tel:13800000000" id="footerPhone">138-0000-0000</a></p>
+      <p class="contact-line"><span data-lbl="wechat">微信</span> <span id="footerWechat">shixian_luthier</span></p>
+      <p class="contact-line"><span data-lbl="phone">电话</span> <a href="tel:13800000000" id="footerPhone">138-0000-0000</a></p>
       <p class="footer-note" id="footerNote"></p>
     </div>
     <div class="footer-actions">
@@ -79,7 +80,7 @@
         <span data-lbl="qr">展销会二维码</span>
       </button>
     </div>
-    <p class="footer-copy">手工制作 · 支持定制 · 展会现场可试奏 · <button class="admin-link" data-route="/admin">管理内容</button></p>
+    <p class="footer-copy"><span data-lbl="footerCopy"></span> · <button class="admin-link" data-route="/admin" data-lbl="adminLink">管理内容</button></p>
   </footer>
 </div>
 
@@ -102,6 +103,6 @@
 
 <div class="toast" id="toast" hidden></div>
 
-<script src="js/app.js?v=20260930" defer></script>
+<script src="js/app.js?v=20260930b" defer></script>
 </body>
 </html>
