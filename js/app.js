@@ -19,7 +19,6 @@
     var video = document.getElementById("splashVideo");
     var skipBtn = document.getElementById("splashSkip");
     var closed = false;
-    var playTimer = null;
     function close() {
       if (closed) return;
       closed = true;
@@ -28,14 +27,8 @@
       setTimeout(function () { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 900);
     }
     if (video) {
-      // 视频可播放后开始计时兜底
-      video.addEventListener("canplay", function () {
-        if (playTimer) clearTimeout(playTimer);
-        // 最长播放 8 秒后自动关闭
-        playTimer = setTimeout(close, 8000);
-      });
-      video.addEventListener("ended", close);
       video.addEventListener("error", close);
+      video.addEventListener("ended", close);
       var p = video.play();
       if (p && p.catch) p.catch(function () {});
     }
@@ -43,8 +36,8 @@
     splash.addEventListener("click", function (e) {
       if (e.target !== skipBtn) close();
     });
-    // 网络慢时 12 秒后强制关闭
-    setTimeout(close, 12000);
+    // 固定 4.5 秒后自动进入网站，不依赖视频事件
+    setTimeout(close, 4500);
   })();
 
   var DATA = null;
