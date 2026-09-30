@@ -5,14 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>铠悦乐器 · 手工提琴</title>
 <meta name="description" content="拾弦提琴工坊：手工小提琴、大提琴、低音提琴。2026 国际乐器展销会现场展示，扫码即览全部琴款。">
-<meta name="theme-color" content="#14110d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231d1815'/%3E%3Cpath d='M16 8 L20 22 L16 24 L12 22 Z' fill='%23c9a86a'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0c0a08">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0a08'/%3E%3Cpath d='M16 8 L20 22 L16 24 L12 22 Z' fill='%23c9a86a'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=1788529633">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=20260930">
 </head>
 <body>
+
+<!-- 开屏视频动画 -->
+<div class="splash" id="splash" aria-hidden="true">
+  <video class="splash-video" id="splashVideo" src="assets/splash.mp4" autoplay muted playsinline preload="auto"></video>
+  <div class="splash-vignette"></div>
+  <div class="splash-brand">
+    <div class="brand-cn">铠悦乐器</div>
+    <div class="brand-en">KAIYUE · LUTHIER · EST. MMXXVI</div>
+  </div>
+  <button class="splash-skip" id="splashSkip">跳过 · ENTER</button>
+</div>
+
 <div class="app">
   <header class="topbar" id="topbar">
     <button class="brand" data-route="/" aria-label="回到首页">
@@ -90,6 +102,6 @@
 
 <div class="toast" id="toast" hidden></div>
 
-<script src="js/app.js?v=1788529633" defer></script>
+<script src="js/app.js?v=20260930" defer></script>
 </body>
 </html>

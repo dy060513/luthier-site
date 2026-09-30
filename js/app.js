@@ -5,6 +5,45 @@
 (function () {
   "use strict";
 
+  /* ---------- 开屏视频动画 ---------- */
+  (function initSplash() {
+    var splash = document.getElementById("splash");
+    if (!splash) return;
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var seen = false;
+    try { seen = sessionStorage.getItem("kaiyue.splash.v1") === "1"; } catch (e) {}
+    if (reduced || seen) {
+      splash.remove();
+      return;
+    }
+    var video = document.getElementById("splashVideo");
+    var skipBtn = document.getElementById("splashSkip");
+    var closed = false;
+    function close() {
+      if (closed) return;
+      closed = true;
+      try { sessionStorage.setItem("kaiyue.splash.v1", "1"); } catch (e) {}
+      splash.classList.add("done");
+      setTimeout(function () { if (splash.parentNode) splash.parentNode.removeChild(splash); }, 1000);
+    }
+    // 视频自然播完
+    if (video) {
+      video.addEventListener("ended", close);
+      video.addEventListener("error", close);
+      // 某些浏览器不自动播放静音视频时兜底
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* 忽略，由超时兜底 */ });
+    }
+    // 跳过按钮
+    if (skipBtn) skipBtn.addEventListener("click", close);
+    // 点击任意处也跳过（移动端友好）
+    splash.addEventListener("click", function (e) {
+      if (e.target !== skipBtn) close();
+    });
+    // 最长 6 秒兜底，避免视频加载失败卡住
+    setTimeout(close, 6000);
+  })();
+
   var DATA = null;
   var FAV_KEY = "shixian.fav.v1";
   var favs = loadFavs();
@@ -672,7 +711,7 @@
     } catch (e) { /* corrupted local data -> fall through to file */ }
   }
 
-  fetch("data/instruments.json?v=1788529633", { cache: "no-store" })
+  fetch("data/instruments.json?v=20260930", { cache: "no-store" })
     .then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json();
