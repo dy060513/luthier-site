@@ -3,12 +3,12 @@
    - 编辑：站点信息 / 系列 / 标签 / 琴款（增删改）
    - 保存：本机 localStorage 立即生效；本地 server.js 托管时同步写回
      data/instruments.json；静态托管请用「导出 JSON」替换部署。
-   - 口令：默认 luthier2026（客户端保护，防误入，非真正安全）
+   - 口令：Duan（客户端保护，防误入，非真正安全）
    ============================================================ */
 (function () {
   "use strict";
 
-  var PASSCODE = "luthier2026"; // 修改口令改这里
+  var PASSCODE = "Duan"; // 修改口令改这里
 
   var container = null;
   var bridge = null;
@@ -79,7 +79,7 @@
       '<section><div class="admin-card">' +
       '<label class="admin-label">管理口令</label>' +
       '<input class="admin-input" id="adminPass" type="password" placeholder="请输入口令" autocomplete="off">' +
-      '<p class="admin-hint">默认口令 luthier2026，可在 js/admin.js 顶部修改。<br>静态站点的口令仅防误入，非真正安全（源码可见）。</p>' +
+      '<p class="admin-hint">静态站点的口令仅防误入，非真正安全（源码可见）。</p>' +
       '<button class="btn btn-solid" id="adminGo" style="margin-top:14px">进入管理</button>' +
       "</div></section>";
     var pass = document.getElementById("adminPass");
